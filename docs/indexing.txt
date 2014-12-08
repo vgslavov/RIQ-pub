@@ -1,0 +1,48 @@
+# LUBM dataset
+# 1. generate owl files (on bluevalley)
+# -univ 10,000: ~200,000 files (20 * -univ = files)
+cd /mnt/data/datasets/uba/src
+java -cp ../classes edu.lehigh.swat.bench.uba.Generator -onto ~/datasets/lubm/univ-bench.owl -seed 10 -univ 10000
+
+# 2. convert owl files to a single NT file
+~/RIS/scripts/owl2nt.sh owl-1.38B.ls UbaData-1.38B.nt
+
+# 3. create signatures from nt file
+# new way (sig v2)
+# set VEC_CAPACITY
+# recompile rdf-sig-gen
+#/usr/bin/time -v -o UbaData-1.38B.sigv2.time ~/RIS/indexing/code/rdf-sig-gen/rdf-sig-gen -i UbaData-1.38B.n3 -o UbaData-1.38B.sigv2 &> UbaData-1.38B.sigv2.log
+
+# old way (sig v1)
+# set VECTOR_CAPACITY
+# recompile Rdf_Sig_Gen
+#/usr/bin/time -v -o UbaData-1.38B.sig.time ~/RIS/indexing/code/Rdf_Sig_Generator/Rdf_Sig_Gen UbaData-1.38B.nt.ls UbaData-1.38B.sig &> UbaData-1.38B.sig.log
+
+# 4. group signatures and create RIS, RDF-3X indices
+cd ~/RIS/indexing/RIS.RUN
+~/RIS/indexing/RIS.RUN/run_at
+# or
+~/RIS/indexing/RIS/scripts/run_ris_index
+
+# 5.1 create Jena TDB partition indices
+#/usr/bin/time -v ~/RIS/indexing/RIS.RUN/run_at_tdb
+~/RIS/indexing/RIS/scripts/run_index_jena
+
+# 5.2 create RDF-3X partition indices
+cd ~/RIS/indexing/RIS.RUN/index
+/usr/bin/time -v ~/RIS/scripts/create_index-rdf3x.sh GRAPHIDS.NT GRAPHIDS.db db.log
+
+# 6. query
+su
+cd ~/RIS/indexing/RIS/scripts
+# match CAPACITY and ERROR_RATE in run_query_all with run_insert_all
+# using RDF-3X
+./run_ris_query lubm-local.q1 r
+# using Jena TDB
+./run_ris_query lubm-local.q1 t
+
+# 7. indexing with Jena (TDB) manually
+# make sure the --loc folder doesn't exist
+# use tdbloader2 (faster indexing, smaller index)
+# the source file has to have .n3 extension
+tdbloader2 --loc NonExistentFolderName UbaData-100.n3

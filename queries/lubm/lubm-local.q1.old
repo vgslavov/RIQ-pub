@@ -1,0 +1,27 @@
+# Q1 (BIG: 16 joins)
+# Querying for a professor who is an advisor to the given set of students
+
+PREFIX ub: </home/vsfgd/datasets/lubm/univ-bench.owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+SELECT ?professor ?course ?email ?phone ?research ?udergradUnv ?masterUnv ?PhdUnv WHERE
+{
+   # Professor details
+   ?professor <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> </home/vsfgd/datasets/lubm/univ-bench.owl#FullProfessor> .
+   ?professor </home/vsfgd/datasets/lubm/univ-bench.owl#name> "FullProfessor1" .
+   ?professor </home/vsfgd/datasets/lubm/univ-bench.owl#teacherOf> ?course.
+   ?professor </home/vsfgd/datasets/lubm/univ-bench.owl#undergraduateDegreeFrom> ?undergradUnv  .
+   ?professor </home/vsfgd/datasets/lubm/univ-bench.owl#mastersDegreeFrom> ?masterUnv .
+   ?professor </home/vsfgd/datasets/lubm/univ-bench.owl#doctoralDegreeFrom> ?PhdUnv .
+   ?professor </home/vsfgd/datasets/lubm/univ-bench.owl#worksFor> <http://www.Department12.University1.edu> .
+   ?professor </home/vsfgd/datasets/lubm/univ-bench.owl#emailAddress> ?email .
+   ?professor </home/vsfgd/datasets/lubm/univ-bench.owl#telephone> ?phone .
+   ?professor </home/vsfgd/datasets/lubm/univ-bench.owl#researchInterest> ?research .
+   <http://www.Department12.University1.edu/FullProfessor1/Publication2> </home/vsfgd/datasets/lubm/univ-bench.owl#publicationAuthor> ?professor .
+   <http://www.Department12.University1.edu/FullProfessor1/Publication17> </home/vsfgd/datasets/lubm/univ-bench.owl#publicationAuthor> ?professor .
+
+   # List of students
+   <http://www.Department12.University1.edu/UndergraduateStudent36> </home/vsfgd/datasets/lubm/univ-bench.owl#advisor> ?professor .
+   <http://www.Department12.University1.edu/UndergraduateStudent170> </home/vsfgd/datasets/lubm/univ-bench.owl#advisor> ?professor .
+   <http://www.Department12.University1.edu/GraduateStudent41> </home/vsfgd/datasets/lubm/univ-bench.owl#advisor> ?professor .
+   <http://www.Department12.University1.edu/GraduateStudent65> </home/vsfgd/datasets/lubm/univ-bench.owl#advisor> ?professor .
+}

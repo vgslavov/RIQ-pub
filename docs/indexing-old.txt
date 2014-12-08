@@ -1,0 +1,125 @@
+----------------------------------------------
+0) PRESETUP:
+----------------------------------------------
+	a) Make sure LD_LIBRARY_PATH=/home/user/bdb/lib
+	b) Intro:
+	  To run RIS, go to RIS.RUN. It has data/, index/, meta/, logs/.
+	  data/ contains the data signatures
+	  index/ is where berkeley db builds and stores its index
+	  meta/ is a config file for indexing and querying
+	  logs/ stores the log files
+
+
+----------------------------------------------
+1) Generate Data Signature from ntriple graphs seperated by a new line (For RIS data and LSH data)
+----------------------------------------------
+Bluevalley :/home/sp895/old_home/code_original/Index/Rdf_Sig_Generator/Rdf_Sig/Gen
+
+Input: a) Connected Componenets graphs from Dinesh
+       b) Cut Edges from Dinesh
+
+Output: i)Signature Data for each input
+        ii)Signature Meta Data for each input
+
+
+-----------------------------------
+Note - Work on Cactus from here onwards (for now, till you understand the application)
+-----------------------------------
+
+----------------------------------------------
+2) Lsh indexing (Vasil, please fill here)
+----------------------------------------------
+For consistency, please store -
+	lsh code in /home/sp895/code
+	lsh index in /home/sp895/RIS.RUN
+        lsh other files in /home/sp895/code
+
+
+----------------------------------------------
+3) RIS indexing (Should be run from /home/sp895/RIS.RUN)
+----------------------------------------------
+Indexing pre-requisites - 
+	a)Setup all the libraries and directories in the same structure as you see in /home/sp895
+	b)Things to place in /home/sp895/RIS.RUN/data
+            i)Signature data for connected components from Step 1
+            ii) Signature Meta data for connected components from Step 1
+            iii)Signature data for cut edges from Step 1
+            iv) Signature Meta data for cut edges from Step 1
+             v) Original Ntriple File (input from step 1)
+             vi) File with RDF Prefixes for data (if any)
+        c)Things to place in /home/sp895/RIS.RUN/meta
+             i) File having Signatures # and the path for file in 3.b.i
+            ii) File having Signatures # and the path for file in 3.b.iii
+            iii) Eg: /home/sp895/RIS.RUN/meta/data
+
+Run the following script from /home/sp895/RIS.RUN
+/home/sp895/RIS/scripts/run_ris_index
+
+For inputs and sample test case refer "at" command - 
+/home/sp895/RIS.RUN/run_index
+
+To run "at" command, refer - 
+/home/sp895/RIS.RUN/run_at
+
+----------------------------------------------
+4) RIS querying  (Should be run from /home/sp895/code/Query_Index)
+----------------------------------------------
+Copy your SPARQL query to /home/sp895/code/Query_Index and from here run the script - 
+~/RIS/scripts/run_ris_query
+
+Usage: <query_file> <r/j> [<cut_index_dir_suffix>]
+
+query_file - SPARQL query file
+r/j        - Options to query with either RDF3x or Jena
+cut_index_dir_suffix - We separate the index directories for connected components(from 3.b.i) and cut edges (from 3.b.iii) edges in ~/RIS.RUN using a suffix for later. Please provide that suffix. For the current setup, "cut" is the suffix. 
+Refer:
+For connected Components index: /home/sp895/RIS.RUN/index
+For cut edge index: /home/sp895/RIS.RUN/index.cut
+
+Output: queryname.log located in where ever you ran the query from (in this case /home/sp895/code/Query_Index).
+
+Note: Do sudo ls before running the query
+
+Outputfiles - 
+
+.log is the final log
+.res1, .res2, .res3 are the results for each run
+.tim1, .tim2, .tim3 are the timings for each run
+
+----------------------------------------------
+4) RIS logs
+----------------------------------------------
+All RIS logs are stored in : /home/sp895/RIS.RUN/logs
+In this directory - 
+	For indexing:
+    	  Log-1: "indexer.filename.log"
+    	  Log-2: "rdf_trash
+        For querying:
+          Log-1: "query.filename.log"
+
+
+--------------------------------------------------
+
+code:
+- code
+- RIS
+
+data:
+- RIS.RUN
+
+
+Directory Information:
+
+Home Directory
+
+1)bdb : Berkley Db
+
+2)bloom_counter: Header for bloom counters
+
+3)code: Code contains all the processing code - 
+
+4)RIS: code/scripts
+
+5) RIS.RUN: All the data
+
+6)Others: Libararies

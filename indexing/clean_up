@@ -1,0 +1,15 @@
+#!/bin/bash
+
+rm -rf RIS.RUN/data/*.bin
+rm -rf RIS.RUN/log/*
+
+if [ -d RIS.RUN/index ]; then
+  rm -rf RIS.RUN/index/*
+else
+  echo "index dir missing"
+  exit 127;
+fi
+
+cd RIS.RUN/index
+mkdir CBFS GRAPHIDS GRAPHIDS.db GRAPHIDS.tdb GRAPHIDS.n3 riqdbenv UNIONSIGS tdb.log db.log
+touch riqdbenv/DB_CONFIG

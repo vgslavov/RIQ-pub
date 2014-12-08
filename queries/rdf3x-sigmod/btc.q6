@@ -1,0 +1,13 @@
+prefix geo: <http://www.geonames.org/>
+prefix pos: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+prefix dbpedia: <http://dbpedia.org/property/>
+prefix dbpediares: <http://dbpedia.org/resource/>
+prefix owl: <http://www.w3.org/2002/07/owl#>
+
+select distinct ?d where {
+    ?a dbpedia:senators ?c.
+    ?a dbpedia:name ?d.
+    ?c dbpedia:profession dbpediares:Veterinarian.
+    ?a owl:sameAs ?b.
+    ?b geo:ontology#inCountry geo:countries/#US.
+}

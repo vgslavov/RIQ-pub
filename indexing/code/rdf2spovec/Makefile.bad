@@ -1,0 +1,16 @@
+INCLUDES = `pkg-config raptor2 --cflags`
+LIBS = `pkg-config raptor2 --libs`
+CC = g++
+CFLAGS = -O3 -w -fpermissive
+
+all: rdf-sig-gen check-out
+
+rdf-sig-gen:
+	$(CC) -o rdf-sig-gen rdf-sig-gen.cc $(CFLAGS) $(INCLUDES) $(LIBS)
+
+check-out:
+	$(CC) -o check-out check-out.cc $(CFLAGS)
+
+clean:
+	-rm -f *.o
+	-rm -f rdf-sig-gen check-out

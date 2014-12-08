@@ -1,0 +1,20 @@
+PREFIX resource: <http://dbpedia.org/resource/>
+PREFIX ontology: <http://dbpedia.org/ontology/>
+
+#SELECT *
+SELECT ?g
+#SELECT ?city ?area ?code ?zone ?abstract ?postal ?water ?popu ?offset ?g
+WHERE {
+  GRAPH ?g {
+    { ?city ontology:areaLand ?area .
+      ?city ontology:areaCode ?code . }
+    UNION
+    { ?city ontology:timeZone ?zone .
+      ?city ontology:abstract ?abstract . }
+    ?city ontology:country resource:United_States .
+    ?city ontology:postalCode ?postal .
+    OPTIONAL { ?city ontology:areaWater ?water . }
+    OPTIONAL { ?city ontology:populationTotal ?popu . }
+    FILTER EXISTS { ?city ontology:utcOffset ?offset . }
+  }
+}

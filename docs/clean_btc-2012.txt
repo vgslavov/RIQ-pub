@@ -1,0 +1,76 @@
+# 1. sort org data by context (cspo order)
+~/RIS/splodge/scripts/sort_quads.sh -c data-2.nq.gz
+
+# 2. split by ctx (inserts blank lines and commented ctx)
+# (to get many small graphs, don't combine ctx;
+# i.e. use raw ctx rather than host)
+# (modified script to write ctx along with spo)
+split_by-sorted-context-vsfgd.sh -d data-2.split.nq sorted_cspo.gz
+
+# 3. run Jena riot first on individual source files
+riot --check --sink data-2.split.nq &> data-2.split.nq.riot
+
+# 4. clean if riot fails
+
+# REMOVE LINES
+
+# 1. riot ERROR (fatal):
+# (asterisks in anon. entities)
+# Expected BNode or IRI: Got: [CNTRL:-1]
+#
+# found in:
+# datahub/data-2
+# datahub/data-3
+# datahub/data-4
+# timbl/data-5
+# 
+# not introduced by splodge (in org btc-2012)
+grep -n -E "_:http\w*\*" data-2.split.nq &> data-2.split.nq.lines
+awk -F ":" '{print $1}' data-2.split.nq.lines > data-2.split.nq.linenos
+
+# 2. riot ERROR (fatal):
+# Quad not terminated by DOT: [IRI:http://code.google.com/p/ldspider/ns#headerInfo]
+#
+# found in:
+# datahub/data-4
+
+# 3. riot ERROR (fatal)
+# Broken IRI (bad character: '<'): http://reference.data.gov.uk/de
+#
+# <http://reference.data.gov.uk/id/minute/2010-06-25T01:16> <http://reference.data.gov.uk/de<http://reference.data.gov.uk/doc/minute/2010-06-25T01:16> <http://code.google.com/p/ldspider/ns#headerInfo> _:header12903668571336924172178 <http://reference.data.gov.uk/doc/minute/2010-06-25T01:16> .
+#
+# found in:
+# datahub/data-4
+
+lines2sed.sh del data-2.split.nq.linenos data-2split.nq
+
+# FIX LINES
+
+# riot ERROR (fatal):
+# expected "_:"
+# (underscore instead of - in encoding)
+#
+# found in:
+# rest/data-0
+# rest/data-1
+grep -n -E '@\w{2}_' data-0.split.nq > data-0.split.nq.enc.lines
+sed -i.bak 's/@fr_1793/@fr-1793/g' data-0.split.nq
+
+
+# general fixes
+fixit.pl btc-2012.n3 > btc-2012.mod.n3
+
+# identify bad lines with RDF-3X (old)
+rdf3xload btc-2012.mod.db btc-2012.mod.n3
+
+# convert from nquad to nt format (old)
+/usr/bin/time -v -o data-0.nt.2.time ~/RIS/scripts/nquad2nt.py -i data-0.nq.2 -o data-0.nt.2 &> data-0.nt.2.log
+
+# files (old):
+946,703,760: btc-2012.mod4.p1.n3
++
+428,520,755: btc-2012.mod27.p2.fixit2.n3
+=
+1,375,224,515: btc-2012.mod28.both.n3
+(1,356,032,456 actual triples)
+

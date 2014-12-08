@@ -1,0 +1,12 @@
+# Dataset: Freebase
+# Query: 1.1
+
+SELECT  ?sub ?x ?y ?z ?w ?t
+WHERE
+{
+  ?sub <http://rdf.freebase.com/ns/location.location.events> ?x .
+  ?sub <http://rdf.freebase.com/ns/location.location.geolocation> ?y .
+  ?sub <http://rdf.freebase.com/ns/location.location.people_born_here> ?z .
+  ?sub <http://rdf.freebase.com/ns/location.location.people_born_here> ?w .
+  ?sub <http://rdf.freebase.com/ns/location.location.containedby> ?t .
+}

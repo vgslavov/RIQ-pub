@@ -1,0 +1,13 @@
+prefix geo: <http://www.geonames.org/>
+prefix pos: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+prefix dbpedia: <http://dbpedia.org/property/>
+prefix dbpediares: <http://dbpedia.org/resource/>
+prefix owl: <http://www.w3.org/2002/07/owl#>
+
+select ?t ?lat ?long where {
+    ?a dbpedia:wikilink dbpediares:List_of_World_Heritage_Sites_in_Europe.
+    ?a dbpedia:title ?t.
+    ?a pos:lat ?lat.
+    ?a pos:long ?long.
+    ?a dbpedia:wikilink dbpediares:Middle_Ages.
+}

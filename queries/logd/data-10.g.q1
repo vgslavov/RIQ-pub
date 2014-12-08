@@ -1,0 +1,15 @@
+SELECT  ?doc1 ?doc2 ?source ?data ?dataID WHERE {
+GRAPH ?g {
+  ?doc1 <http://purl.org/dc/elements/1.1/creator> ?source .
+  ?doc2 <http://purl.org/dc/elements/1.1/creator> ?source .
+
+  ?doc1 <http://data-gov.tw.rpi.edu/2009/data-gov-twc.rdf#isPartOf> ?data .
+  ?doc2 <http://data-gov.tw.rpi.edu/2009/data-gov-twc.rdf#isPartOf> ?data .
+
+  ?data <http://data-gov.tw.rpi.edu/2009/data-gov-twc.rdf#link_data> ?dataID .
+  ?dataID <http://data-gov.tw.rpi.edu/2009/data-gov-twc.rdf#isPartOf> ?data .
+
+  ?data <http://data-gov.tw.rpi.edu/2009/data-gov-twc.rdf#partial_data> ?doc1 .
+  ?data <http://data-gov.tw.rpi.edu/2009/data-gov-twc.rdf#partial_data> ?doc2 .
+  }
+}

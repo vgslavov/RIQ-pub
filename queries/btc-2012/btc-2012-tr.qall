@@ -1,0 +1,106 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX geo: <http://aims.fao.org/aos/geopolitical.owl#>
+PREFIX collect: <http://purl.org/collections/nl/am/>
+PREFIX ore: <http://www.openarchives.org/ore/terms/>
+PREFIX fbase: <http://rdf.freebase.com/ns/>
+
+# B1
+
+SELECT ?s1 ?o1 ?s2 WHERE {
+    ?s1 collect:acquisitionDate "1980-05-16" .
+    ?s1 collect:acquisitionMethod collect:t-14382 .
+    ?s1 collect:associationSubject ?o1 .
+    ?s1 collect:contentMotifGeneral collect:t-8782 .
+    ?s1 collect:creditLine collect:t-14773 .
+    ?s1 collect:material collect:t-3249 .
+    ?s1 collect:objectCategory collect:t-15606 .
+    ?s1 collect:objectName collect:t-10444 .
+    ?s1 collect:objectNumber "KA 17150" .
+    ?s1 collect:priref "23182" .
+    ?s1 collect:productionDateEnd "1924" .
+    ?s1 collect:productionDateStart "1924" .
+    ?s1 collect:productionPlace collect:t-624 .
+    ?s1 collect:title "Plate commemorating the first Amsterdam-Batavia flight"@en .
+    ?s1 ore:proxyFor collect:physical-23182 .
+    ?s1 ore:proxyIn collect:aggregation-23182 .
+    ?s1 collect:relatedObjectReference ?s2 .
+    ?s2 collect:relatedObjectReference ?s1 .
+}
+
+# B2
+
+SELECT ?u ?un ?cnt1 ?ctry1 ?on1 ?cnt2 ?ctry2 ?on2 WHERE {
+    ?u geo:nameShortEN ?un .
+    ?u geo:hasMember ?ctry1 .
+    ?u rdf:type geo:economic_region .
+    ?cnt1 geo:hasMember ?ctry1 .
+    ?cnt1 rdf:type geo:geographical_region .
+    ?cnt1 geo:nameShortEN "Africa"^^xsd:string .
+    ?cnt2 geo:hasMember ?ctry2 .
+    ?cnt2 rdf:type geo:geographical_region .
+    ?cnt2 geo:nameShortEN "Asia"^^xsd:string .
+    ?ctry1 geo:nameOfficialEN ?on1 .
+    ?ctry1 geo:isInGroup ?u .
+    ?ctry1 geo:isInGroup ?cnt1 .
+    ?ctry1 geo:isInGroup geo:World .
+    ?ctry1 rdf:type geo:self_governing .
+    ?ctry1 geo:hasBorderWith ?ctry2 .
+    ?ctry2 geo:nameOfficialEN ?on2 .
+    ?ctry2 geo:isInGroup ?cnt2 .
+    ?ctry2 geo:isInGroup geo:World .
+    ?ctry2 rdf:type geo:self_governing .
+    ?ctry2 geo:hasBorderWith ?ctry1 .
+}
+
+# B3
+
+SELECT ?fperf ?actor ?film ?name ?rel WHERE {
+    ?fperf fbase:film.performance.actor ?actor .
+    ?fperf fbase:film.performance.film ?film .
+    ?film fbase:type.object.name ?name .
+    ?film fbase:film.film.initial_release_date ?rel .
+}
+
+# B4
+
+SELECT ?fperf ?actor ?film ?name ?rel ?lang ?g WHERE {
+    ?fperf fbase:film.performance.actor ?actor .
+    ?fperf fbase:film.performance.film ?film .
+    ?film fbase:type.object.name ?name .
+    ?film fbase:film.film.initial_release_date ?rel .
+    ?film fbase:film.film.language ?lang .
+    ?film fbase:film.film.genre ?g .
+}
+
+# B5
+
+SELECT ?fperf ?actor ?film ?name ?rel ?lang ?g ?star WHERE {
+    ?fperf fbase:film.performance.actor ?actor .
+    ?fperf fbase:film.performance.film ?film .
+    ?film fbase:type.object.name ?name .
+    ?film fbase:film.film.initial_release_date ?rel .
+    ?film fbase:film.film.language ?lang .
+    ?film fbase:film.film.genre ?g .
+    ?film fbase:film.film.starring ?star .
+}
+
+# B6
+
+SELECT ?p1 ?p2 ?p1n ?p2n ?loc WHERE {
+    ?p1 fbase:people.place_lived.person ?p1n .
+    ?p1 fbase:people.place_lived.location ?loc .
+    ?p2 fbase:people.place_lived.person ?p2n .
+    ?p2 fbase:people.place_lived.location ?loc .
+    ?loc fbase:location.location.containedby fbase:en.iraq .
+}
+
+# B7
+
+SELECT ?s ?x ?y ?z ?w ?t WHERE {
+    ?s fbase:location.location.events ?x .
+    ?s fbase:location.location.geolocation ?y .
+    ?s fbase:location.location.people_born_here ?z .
+    ?s fbase:location.location.people_born_here ?w .
+    ?s fbase:location.location.containedby ?t .
+}

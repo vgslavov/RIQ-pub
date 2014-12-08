@@ -1,0 +1,13 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX ub: <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#>
+
+SELECT ?x ?y ?z
+WHERE
+{
+    ?x <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> </home/vsfgd/datasets/lubm/univ-bench.owl#UndergraduateStudent> .
+    ?y <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> </home/vsfgd/datasets/lubm/univ-bench.owl#University> .
+    ?z <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> </home/vsfgd/datasets/lubm/univ-bench.owl#Department> .
+    ?x </home/vsfgd/datasets/lubm/univ-bench.owl#memberOf> ?z .
+    ?z </home/vsfgd/datasets/lubm/univ-bench.owl#subOrganizationOf> ?y .
+    ?x </home/vsfgd/datasets/lubm/univ-bench.owl#undergraduateDegreeFrom> ?y .
+}

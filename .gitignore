@@ -1,0 +1,10 @@
+*.o
+#*.a
+*.tmp
+*.class
+bin/
+log/
+test/
+tmp/
+.DS_Store
+__pycache__

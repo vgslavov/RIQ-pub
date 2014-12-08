@@ -1,0 +1,15 @@
+# Dataset: Freebase
+# Query: 2.1
+
+#SELECT * WHERE
+#SELECT ?person1 ?person2 ?personName1 ?personName2 ?location
+SELECT ?g
+WHERE {
+  GRAPH ?g {
+    ?person1 <http://rdf.freebase.com/ns/people.place_lived.person> ?personName1 .
+    ?person1 <http://rdf.freebase.com/ns/people.place_lived.location> ?location .
+    ?person2 <http://rdf.freebase.com/ns/people.place_lived.person> ?personName2 .
+    ?person2 <http://rdf.freebase.com/ns/people.place_lived.location> ?location .
+    ?location <http://rdf.freebase.com/ns/location.location.containedby> <http://rdf.freebase.com/ns/en.iraq> .
+  }
+}

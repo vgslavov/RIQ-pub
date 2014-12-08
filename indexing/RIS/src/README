@@ -1,0 +1,26 @@
+# Prerequisites:
+
+# rasqal
+# (if using pkg)
+apt-get install librasqal3-dev
+# (if building from git)
+apt-get install automake libtool gtk-doc-tools flex bison
+
+# bison 3
+wget http://ftp.gnu.org/gnu/bison/bison-3.0.2.tar.gz
+tar zxvf *.tar.gz
+cd bison*
+./confgiure
+make
+sudo make install
+
+# sparse_hash_map
+apt-get install libsparsehash-dev
+
+# berkeley db
+apt-get install libdb++-dev
+# (static lib is included in repository)
+
+# hashlibpp
+cd /home/vsfgd/RIS/indexing/hashlibpp/trunk/src
+make

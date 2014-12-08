@@ -1,0 +1,8 @@
+<http://localdb.org/Invega> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/Drug>  .
+<http://localdb.org/Invega> <http://localdb.org/hasName> "Invega" .
+
+<http://localdb.org/CARDIOQUIN> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/Drug>  .
+<http://localdb.org/CARDIOQUIN> <http://localdb.org/hasName> "CARDIOQUIN" .
+
+<http://localdb.org/Lyrica> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/Drug>  .
+<http://localdb.org/Lyrica> <http://localdb.org/hasName> "Lyrica" .

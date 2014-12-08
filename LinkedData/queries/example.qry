@@ -1,0 +1,17 @@
+SELECT ?x ?z1 ?z2 ?s ?t ?u
+WHERE
+{ 
+  graph ?s {
+#  <http://bio2rdf.org/drugbank:DB00482> <http://bio2rdf.org/bio2rdf_resource:urlList1> <http://bio2rdf.org/drugbank:DB00484> . 
+   ?x <http://bio2rdf.org/bio2rdf_resource:urlList> ?z1 .
+   ?x <http://bio2rdf.org/bio2rdf_resource:urlList1> ?z2 .
+
+  }
+  graph ?t {
+   ?x <http://bio2rdf.org/bio2rdf_resource:urlList> ?z1 .
+   ?x <http://bio2rdf.org/bio2rdf_resource:urlList1> ?z2 .
+
+  }
+}
+
+

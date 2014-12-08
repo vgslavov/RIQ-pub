@@ -1,0 +1,34 @@
+prefix ncbit: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl>
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix owl: <http://www.w3.org/2002/07/owl#>
+prefix sider: <http://wifo5-04.informatik.uni-mannheim.de/sider/resource/sider/>
+prefix dbpediaowl: <http://dbpedia.org/ontology/>
+prefix dbprop: <http://dbpedia.org/property/>
+prefix user: <http://localdb.org/>
+
+select ?drug ?p ?countSE
+where {
+  {
+  select ?drug (count(*) as ?countSE)
+  where {
+  ?x rdf:type dbpediaowl:Drug .
+  ?x user:hasName ?myDrug .
+  service <http://wifo5-04.informatik.uni-mannheim.de/sider/sparql>
+  {
+    ?drug rdf:type sider:drugs .
+    ?drug rdfs:label ?myDrug .
+    ?drug owl:sameAs ?drug2 .
+    ?drug sider:sideEffect ?sideeffect .
+    ?sideeffect rdfs:label ?sideeffectName .
+  }
+  }
+  group by ?drug order by ?drug
+  }
+  service <http://dbpedia.org/sparql>
+  {
+    ?drug2 rdf:type dbpediaowl:Drug  .
+    ?drug2 dbprop:legalStatus ?p .
+  }
+}
+

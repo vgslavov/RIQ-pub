@@ -1,0 +1,26 @@
+TARGET = riq
+INCLUDES = `pkg-config raptor2 --cflags`
+LIBS = `pkg-config raptor2 --libs`
+CC = g++
+CFLAGS = -O3 -std=c++0x
+#CFLAGS = -O3 -w -fpermissive
+#CFLAGS =  -g -w -fpermissive
+#CFLAGS = -pg -g -Wall -fpermissive
+
+default: $(TARGET)
+all: default
+
+OBJECTS = $(patsubst %.C, %.o, $(wildcard *.C))
+HEADERS = $(wildcard *.h)
+
+%.o: %.C $(HEADERS)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+.PRECIOUS: $(TARGET) $(OBJECTS)
+
+$(TARGET): $(OBJECTS)
+	$(CC) $(CFLAGS) $(OBJECTS) $(LIBS) -o $@
+
+clean:
+	-rm -f *.o
+	-rm -f $(TARGET)

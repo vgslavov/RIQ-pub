@@ -1,0 +1,27 @@
+# Dataset: Datahub (1)
+# Query: 2
+
+SELECT ?sub ?pred1 ?pred2 ?pred3 ?pred4
+WHERE
+{
+    ?sub ?pred1 <http://lexvo.org/id/term/afr/Panama> .
+    ?sub ?pred1 <http://lexvo.org/id/term/aze/Panama> .
+    ?sub ?pred1 <http://lexvo.org/id/term/bez/Hupanama> .
+    ?sub ?pred1 <http://lexvo.org/id/term/ces/Panama> .
+    ?sub ?pred1 <http://lexvo.org/id/term/cgg/Panama> .
+    ?sub ?pred1 <http://lexvo.org/id/term/cym/Panama> .
+    ?sub ?pred1 <http://lexvo.org/id/term/dan/Panama> .
+    ?sub ?pred1 <http://lexvo.org/id/term/dav/Panama> .
+    ?sub ?pred1 <http://lexvo.org/id/term/deu/Panama> .
+    ?sub ?pred1 <http://lexvo.org/id/term/dje/Panama> .
+    ?sub ?pred1 <http://lexvo.org/id/term/lav/Panama> .
+    ?sub ?pred1 <http://lexvo.org/id/term/lin/Panama> .
+    ?sub ?pred1 <http://lexvo.org/id/term/nmg/Panama> .
+    ?sub ?pred1 <http://lexvo.org/id/term/nno/Panama> .
+    ?sub ?pred1 <http://lexvo.org/id/term/nob/Panama> .
+    ?sub ?pred1 <http://lexvo.org/id/term/zul/i-Panama> .
+    ?sub ?pred2 <http://lexvo.org/id/un_m49/013> .
+    ?sub ?pred3 <lvont:GeographicRegion> .
+    ?sub ?pred4 <http://psi.oasis-open.org/iso/3166/#591> .
+    ?sub ?pred4 <http://sws.geonames.org/3703430/> .
+}

@@ -1,0 +1,33 @@
+# Dataset: Datahub
+# Query: 3
+
+SELECT ?person1 ?vNameP ?job1 ?person2 ?dob ?work ?person3 ?job2 ?dod ?broderTerm ?term1 ?domain ?term2 ?subjectCategory
+WHERE
+{
+        ?person1 <http://d-nb.info/standards/elementset/gnd#variantNameForThePerson> ?vNameP .
+        ?person1 <http://d-nb.info/standards/elementset/gnd#familialRelationship> ?person2 .
+        ?person1 <http://d-nb.info/standards/elementset/gnd#familialRelationship> ?person3 .
+        ?person1 <http://d-nb.info/standards/elementset/gnd#professionOrOccupation> ?job1 .
+
+        ?person2 <http://d-nb.info/standards/elementset/gnd#familialRelationship> ?person1 .
+        ?person2 <http://d-nb.info/standards/elementset/gnd#professionOrOccupation> ?job1 .
+        ?person2 <http://d-nb.info/standards/elementset/gnd#dateOfBirth> ?dob .
+        ?person2 <http://d-nb.info/standards/elementset/gnd#publication> ?work .
+
+        ?person3 <http://d-nb.info/standards/elementset/gnd#professionOrOccupation> ?job2 .
+        ?person3 <http://d-nb.info/standards/elementset/gnd#publication> ?work .
+        ?person3 <http://d-nb.info/standards/elementset/gnd#dateOfDeath> ?dod .
+
+        ?job1 ?broderTerm  ?term1 .
+        ?job1 <http://d-nb.info/standards/elementset/gnd#relatedDdcWithDegreeOfDeterminacy3> ?domain .
+        ?job1 <http://d-nb.info/standards/elementset/gnd#gndIdentifier> "4032009-1" .
+
+        ?job2 ?broderTerm ?term2 .
+        ?job2 <http://d-nb.info/standards/elementset/gnd#gndIdentifier> "4172793-9" .
+
+        ?term1 ?subjectCategory <http://d-nb.info/vocab/gnd-sc#14.1> .
+        ?term1 <http://d-nb.info/standards/elementset/gnd#variantNameForTheSubjectHeading> "Tonsetzerin".
+        ?term1 <http://d-nb.info/standards/elementset/gnd#relatedTerm> <http://d-nb.info/gnd/4032009-1> .
+
+        ?term2 ?subjectCategory <http://d-nb.info/vocab/gnd-sc#9.4ab> .
+}

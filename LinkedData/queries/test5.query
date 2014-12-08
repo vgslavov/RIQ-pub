@@ -1,0 +1,25 @@
+PREFIX dbpedia-owl: <http://dbpedia.org/ontology/>
+PREFIX dbpprop: <http://dbpedia.org/property/>
+PREFIX drugbank: <http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugbank/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX afn: <http://jena.hpl.hp.com/ARQ/function#>
+PREFIX apf: <java:com.hp.hpl.jena.query.pfunction.library.>
+SELECT * WHERE{
+{
+SELECT * WHERE {
+SERVICE <http://wifo5-04.informatik.uni-mannheim.de/drugbank/sparql>
+{?modifiedDrug rdfs:label "Lepirudin"; drugbank:affectedOrganism ?affectedOrganism}
+}
+}.
+{
+SELECT apf:IRI(apf:REPLACE(apf:STR(?drug), "http://www4.wiwiss.fu-berlin.de", "http://wifo5-04.informatik.uni-mannheim.de")) AS ?modifiedDrug WHERE {
+SERVICE <http://dbpedia.org/sparql>
+{?a rdfs:label "Lepirudin"@en; owl:sameAs ?drug; dbpprop:routesOfAdministration ?routes.}
+}
+}
+
+}
+
+

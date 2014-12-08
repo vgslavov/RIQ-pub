@@ -1,0 +1,18 @@
+PREFIX foaf: <http://datagraph.org/datagraph/foaf>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?mbox ?name ?weblog ?s
+WHERE
+{
+  ?s <http://xmlns.com/foaf/0.1/name> ?name .
+  ?s <http://xmlns.com/foaf/0.1/mbox> ?mbox.
+  ?s ?weblog <http://ar.to/> .
+
+  #<http://datagraph.org/bendiken/#self> <http://xmlns.com/foaf/0.1/homepage> <http://ar.to/> .
+
+  #<http://datagraph.org/bendiken/#self> <http://xmlns.com/foaf/0.1/knows> ?o .
+  #<http://datagraph.org/bendiken/#self> ?p <http://ar.to/#self> .
+
+  #?s <http://xmlns.com/foaf/0.1/nick> ?nick .
+  #<http://datagraph.org/bendiken/foaf> <http://xmlns.com/foaf/0.1/maker> ?s .
+}

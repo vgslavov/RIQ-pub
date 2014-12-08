@@ -1,0 +1,12 @@
+prefix geo: <http://www.geonames.org/>
+pos: <http://www.w3.org/2003/01/geo/wgs84 pos#>
+dbpedia: <http://dbpedia.org/property/>
+dbpediares: <http://dbpedia.org/resource/>
+owl: <http://www.w3.org/2002/07/owl#>
+
+select ?b ?p ?bn where {
+    ?a [] "Tim Berners-Lee".
+    ?a dbpedia:dateOfBirth ?b.
+    ?a dbpedia:placeOfBirth ?p.
+    ?a dbpedia:name ?bn.
+}

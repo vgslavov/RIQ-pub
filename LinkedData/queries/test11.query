@@ -1,0 +1,17 @@
+prefix ncbit: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl>
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix owl: <http://www.w3.org/2002/07/owl#>
+
+select ?a ?p ?y
+where {
+  select ?a ?p where {
+  service <http://data.linkedct.org/sparql>
+  { 
+  ?a ?p <http://www4.wiwiss.fu-berlin.de/drugbank/resource/drugs/DB00002> .
+  }
+  service <http://dbpedia.org/sparql>
+  {
+  ?a ?p ?y .
+  }
+  }
+}

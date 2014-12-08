@@ -1,0 +1,12 @@
+prefix geo: <http://www.geonames.org/>
+pos: <http://www.w3.org/2003/01/geo/wgs84 pos#>
+dbpedia: <http://dbpedia.org/property/>
+dbpediares: <http://dbpedia.org/resource/>
+owl: <http://www.w3.org/2002/07/owl#>
+
+select distinct ?l ?long ?lat where {
+    ?a [] "Barack Obama".
+    ?a dbpedia:placeOfBirth ?l.
+    ?l pos:lat ?lat.
+    ?l pos:long ?long.
+}

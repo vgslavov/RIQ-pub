@@ -1,0 +1,11 @@
+<http://bio2rdf.org/drugbank:DB00482> <http://bio2rdf.org/bio2rdf_resource:urlList> <http://bio2rdf.org/drugbank:DB00484> <a> .
+<http://bio2rdf.org/drugbank:DB00482> <http://bio2rdf.org/bio2rdf_resource:urlList1> <http://bio2rdf.org/drugbank:DB00484> <a> .
+<http://bio2rdf.org/drugbank:DB00482> <http://bio2rdf.org/bio2rdf_resource:urlList> <http://bio2rdf.org/drugbank:DB00484> <b> .
+<http://bio2rdf.org/drugbank:DB00482> <http://bio2rdf.org/bio2rdf_resource:urlList1> <http://bio2rdf.org/drugbank:DB00484> <b> .
+<http://bio2rdf.org/drugbank:DB00482> <http://bio2rdf.org/bio2rdf_resource:urlList> <http://bio2rdf.org/drugbank:DB00484> <c> .
+<http://bio2rdf.org/drugbank:DB00482> <http://bio2rdf.org/bio2rdf_resource:urlList1> <http://bio2rdf.org/drugbank:DB00484> <c> .
+<http://bio2rdf.org/drugbank:DB00482> <http://bio2rdf.org/bio2rdf_resource:urlList> <http://bio2rdf.org/drugbank:DB00484> <d> .
+<http://bio2rdf.org/drugbank:DB00482> <http://bio2rdf.org/bio2rdf_resource:urlList1> <http://bio2rdf.org/drugbank:DB00484> <d> .
+<http://bio2rdf.org/drugbank:DB00482> <http://bio2rdf.org/bio2rdf_resource:urlList> <http://bio2rdf.org/drugbank:DB00484> <e> .
+<http://bio2rdf.org/drugbank:DB00482> <http://bio2rdf.org/bio2rdf_resource:urlList1> <http://bio2rdf.org/drugbank:DB00484> <e> .
+

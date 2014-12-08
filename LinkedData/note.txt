@@ -1,0 +1,107 @@
+We talked about optimizing queries that fit into the below template,
+where there are one or more BGPs for a local dataset as well as one or
+more SERVICE calls to remote endpoints.
+
+TEMPLATE
++++++++++++++++++++++++++
+select ..... where 
+{
+   BGP (local)
+   SERVICE h1 {
+      BGP
+   }
+   SERVICE h2 {
+      BGP
+   }
+   ...
+}
+++++++++++++++++++++++++
+
+Consider the below example.
+
+ PREFIX  ncbit: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#>
+  PREFIX  owl:  <http://www.w3.org/2002/07/owl#>
+  PREFIX  rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+  PREFIX  bio2rdf: <http://bio2rdf.org/drugbank_vocabulary>
+  
+  SELECT  ?drug ?drug2 ?manufacturer
+  FROM <file:///home/rpraveen/jena/data/data1.nt>
+  WHERE
+    { ?drug ?p ?o
+      SERVICE <http://dbmi-icode-01.dbmi.pitt.edu:2020/sparql>
+        { ?drug2 rdf:type ncbit:Pharmacologic_Substance .
+          ?drug2 owl:sameAs ?drug
+        }
+      SERVICE <http://drugbank.bio2rdf.org/sparql>
+        { ?drug <http://bio2rdf.org/drugbank_vocabulary:manufacturer> ?manufacturer }
+    }
+
+
+If you run qparse (in Jena) on the query file, you will get the below
+query plan. Our goal to rewrite this query plan to minimize the number
+of HTTP requests. By rewriting, I mean the order of processing the
+local BGPs and SERVICE calls.
+
+## qparse --explain --query test4.query
+
+(prefix ((ncbit: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#>)
+         (owl: <http://www.w3.org/2002/07/owl#>)
+         (rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>)
+         (bio2rdf: <http://bio2rdf.org/drugbank_vocabulary>))
+  (project (?drug ?drug2 ?manufacturer)
+    (sequence
+      (bgp (triple ?drug ?p ?o))
+      (service <http://dbmi-icode-01.dbmi.pitt.edu:2020/sparql>
+        (bgp
+          (triple ?drug2 rdf:type ncbit:Pharmacologic_Substance)
+          (triple ?drug2 owl:sameAs ?drug)
+        ))
+      (service <http://drugbank.bio2rdf.org/sparql>
+        (bgp (triple ?drug <http://bio2rdf.org/drugbank_vocabulary:manufacturer> ?manufacturer))))))
+
+In the above query plan, the local BGP is first processed and based on
+each match, the service call is invoked. The order is based on how
+these appear within the (sequence ...) block. (You can test it
+yourself.) There is a way in Jena to parse a query plan and execute
+it. See http://jena.apache.org/documentation/query/algebra.html.
+
+I would like one of you to take a query, generate a query plan, parse
+the plan, and execute it through Jena/ARQ. Once we can do this, we
+will be able to perform query optimization and rewrite query plans and
+speed up query execution. This will be an important contribution of
+our research.
+
+The way we will reorder the execution of BGPs and SERVICE calls is by
+estimating their selectivities. High selectivity means low number of
+results and vice-versa. We want our query plans to be such that higher
+selectivity tasks are done first -- this will reduce the number of
+HTTP requests issued against SPARQL endpoints and improve the overall
+speed of query execution.
+
+Let's refer to the above query plan. For each binding of ?drug in the
+local dataset, Jena will invoke a HTTP request to
+<http://dbmi-icode-01.dbmi.pitt.edu:2020/sparql>. Suppose there are
+100 bindings for ?drug in the local dataset, then there would be 100
+HTTP requests. But if the BGP within the service call has only say 10
+matches, then we need just one HTTP request to get all the bindings
+for ?drug2 and ?drug within the service call and then do a join with
+the local bindings of ?drug. This would be much faster. Here is how
+the query plan would like.
+
+
+(prefix ((ncbit: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#>)
+         (owl: <http://www.w3.org/2002/07/owl#>)
+         (rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>)
+         (bio2rdf: <http://bio2rdf.org/drugbank_vocabulary>))
+  (project (?drug ?drug2 ?manufacturer)
+    (sequence
+      (service <http://dbmi-icode-01.dbmi.pitt.edu:2020/sparql>
+        (bgp
+          (triple ?drug2 rdf:type ncbit:Pharmacologic_Substance)
+          (triple ?drug2 owl:sameAs ?drug)
+        ))
+      (bgp (triple ?drug ?p ?o))
+      (service <http://drugbank.bio2rdf.org/sparql>
+        (bgp (triple ?drug <http://bio2rdf.org/drugbank_vocabulary:manufacturer> ?manufacturer))))))
+
+

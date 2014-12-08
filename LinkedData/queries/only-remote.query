@@ -1,0 +1,17 @@
+prefix ncbit: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl>
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix bio2rdf: <http://bio2rdf.org/drugbank_vocabulary>
+prefix owl: <http://www.w3.org/2002/07/owl#>
+
+select ?drug ?drug2 ?manufacturer
+FROM </home/rpraveen/jena/data/data1.nt>
+where {
+  service <http://dbmi-icode-01.dbmi.pitt.edu:2020/sparql>
+  {
+    ?drug rdf:type ncbit:Pharmacologic_Substance .
+  }
+  service <http://drugbank.bio2rdf.org/sparql>
+  {
+   ?drug2 <http://bio2rdf.org/drugbank_vocabulary:manufacturer> ?manufacturer .
+  }
+}

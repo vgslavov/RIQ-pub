@@ -1,0 +1,71 @@
+#!/bin/bash
+
+if [ $# -ne 3 ]
+then
+   echo "Usage : <DB_Directory> <Query_file> <RIS_log>"
+   exit
+fi
+
+#set -x 
+
+USER=vsfgd
+JENADIR="/home/${USER}/Jena/apache-jena-2.11.1/bin"
+TIME="/usr/bin/time -v"
+RESULTS_FORMAT="csv"
+
+Db=$1
+Query=$2
+log=$3
+temp=$log.temp
+timefile=$2.timing
+resultfile=$2.result
+#rm -f $timefile
+#rm -f $resultfile
+touch $timefile
+touch $resultfile
+
+grep '^All lists matched' $log | awk '{print $4}' > $temp
+ncand=`grep -c '^All lists matched' $log`
+
+#grep '^Match:' $log | cut -d' ' -f 2 > $temp
+#grep '^Match:' $log | cut -d' ' -f 2 |sed -e 's/$/.n3/' > $temp
+
+total=0
+total_major_pf=0
+total_minor_pf=0
+n=1
+for line in $(cat $temp)
+do
+   #echo $line
+   db_file="$Db/`basename $line`"
+   #echo $db_file
+   echo>>$resultfile
+   start_time=$(date +%s%N)
+   $TIME -v -o timing.temp $JENADIR/tdbquery --results $RESULTS_FORMAT --time --loc=$db_file --query=$Query >>$resultfile #2>>/dev/null 
+   end_time=$(date +%s%N)
+   bash_time=$(($end_time-$start_time))
+
+   total=$(($total+$bash_time))
+
+   timev_time=`grep "Elapsed (wall clock) time" timing.temp |awk '{print $NF}'`
+   major_pf=`grep "Major (requiring I/O) page faults" timing.temp |awk '{print $NF}'`
+   minor_pf=`grep "Minor (reclaiming a frame) page faults" timing.temp |awk '{print $NF}'`
+   echo $line $timev_time $major_pf $minor_pf >> $timefile
+
+   bash_time=`echo "scale=3;"$bash_time"/1000000000.0" | bc`
+   echo "$line ($n/$ncand): $bash_time $timev_time $major_pf $minor_pf"
+
+   total_major_pf=`echo "scale=3;$total_major_pf+$major_pf" | bc`
+   total_minor_pf=`echo "scale=3;$total_minor_pf+$minor_pf" | bc`
+   n=`expr $n + 1`
+done
+echo>>$timefile
+echo '------------------------------------------------------'>>$timefile
+total=`echo "scale=3;"$total"/1000000000.0" | bc`
+echo 'Total time (sec) = '$total>>$timefile
+echo 'Total major page faults = '$total_major_pf>>$timefile
+echo 'Total minor page faults = '$total_minor_pf>>$timefile
+echo '------------------------------------------------------'>>$timefile
+#rm -f $temp
+#rm -f timing.temp   	
+  

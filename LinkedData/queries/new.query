@@ -1,0 +1,24 @@
+SELECT *
+WHERE {
+#SERVICE <http://www4.wiwiss.fu-berlin.de/diseasome/sparql> {
+#?D <http://www4.wiwiss.fu-berlin.de/diseasome/resource/diseasome/associatedGene> ?GN2 .
+#?D <http://www4.wiwiss.fu-berlin.de/diseasome/resource/diseasome/possibleDrug> ?II. } 
+
+SERVICE <http://linkedct.org/sparql> {
+# ?IT <http://data.linkedct.org/resource/linkedct/intervention type> "Drug" .
+# ?CT1 <http://data.linkedct.org/resource/linkedct/condition> ?C1 .
+# ?CT1 <http://data.linkedct.org/resource/linkedct/intervention> ?I .
+# ?C1 <http://www.w3.org/2000/01/rdf-schema#seeAlso> ?D. 
+ ?x a ?z
+}
+
+#SERVICE <http://linkedct.org/sparql> {
+#?C <http://data.linkedct.org/resource/linkedct/condition name> "Prostate Cancer" .
+#?CT <http://data.linkedct.org/resource/linkedct/condition> ?C. }
+#
+#SERVICE <http://linkedct.org/sparql> {
+#?I <http://data.linkedct.org/resource/linkedct/intervention type> "Drug" .
+#?I <http://www.w3.org/2000/01/rdf-schema#seeAlso> ?II .
+#?CT <http://data.linkedct.org/resource/linkedct/intervention> ?I } 
+
+}

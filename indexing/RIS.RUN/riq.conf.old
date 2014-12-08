@@ -1,0 +1,57 @@
+# dirs
+#USER=`whoami`
+USER="vsfgd"
+HOME="/home/$USER"
+CODE="$HOME/RIS/indexing/code"
+RIS="$HOME/RIS/indexing/RIS"
+RISBIN="$RIS/bin"
+RISRUN="$HOME/RIS/indexing/RIS.RUN"
+LOG="$RISRUN/log"
+
+# bins/scripts
+TIME="/usr/bin/time -v"
+RIQ="$RISBIN/riq"
+CBF="$RISBIN/cbf"
+SPLITG="$CODE/split_graphs/run_split_graphs"
+CLEAR_CACHE="$RIS/scripts/run_clear_cache"
+
+# Jaccard
+USEJ=0
+FANOUT=2000
+SEEDSIZE=250
+
+# LSH
+USELSH=1
+LSHK=30
+LSHL=2
+LSHP=1675850375
+IRRPOLY=2525701133
+HASH_FILE="${RISRUN}/index/hash.dat"
+#SKIPLIST=""
+#SKIPLIST="-S p"
+SKIPLIST="-S s"
+#SKIPLIST="-S spo,sp,so,s,o"
+#VERBOSE="-V"
+
+# BDB
+DBNAME="riqindex"
+DBENV="$RISRUN/index/riqdbenv"
+NUMBUF=32768
+
+# Dablooms
+CAPACITY=1000000
+ERROR_RATE=0.05
+CBFMETA_FILE="${RISRUN}/index/CBF.META"
+
+# PVs
+MAXSIGS=200000000
+MAXCCSIZE=50
+MINCCSIZE=10
+MAXCCUNIONSIZE=100000000
+PV_FILE="$RISRUN/data/data-10-out.split.sigv2.DAT"
+OFF_FILE="$RISRUN/data/data-10-out.split.sigv2.META"
+
+# dataset
+SUFFIX="nq"
+NT_FILE="$RISRUN/data/data-10-out.split.nq"
+PREFIX_FILE="$RISRUN/data/logd_prefix"

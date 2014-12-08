@@ -1,0 +1,42 @@
+#!/bin/bash
+if [ $# -ne 3 ]
+then
+   echo "Usage : <DB_Directory> <Query_file> <RIS_log>"
+   exit
+fi
+
+USER=vsfgd
+Db=$1
+Query=$2
+log=$3
+temp=$log.temp
+timefile=$2.timing
+resultfile=$2.result
+rm -f $timefile
+rm -f $resultfile
+touch $timefile
+touch $resultfile
+grep '^Match:' $log | cut -d' ' -f 2 |sed -e 's/$/.n3/' > $temp
+total=0
+for line in $(cat $temp)
+do
+   
+  # echo $line
+   db_file=$Db/$line
+   #echo $db_file
+   echo>>$resultfile
+   time1=$(date +%s%N)
+   /usr/bin/time -v -o timing.temp /home/${USER}/jena/Jena-2.6.4/bin/query --data $db_file --query $Query >>$resultfile #2>>/dev/null 
+   time2=$(date +%s%N)
+   total=$(($total+$(($time2-$time1))))
+   val=$line'  '$(grep 'Elapsed' timing.temp | cut -d ' ' -f 8)
+   echo $val >> $timefile
+done
+echo>>$timefile
+echo '------------------------------------------------------'>>$timefile
+total=`echo "scale=3;"$total"/1000000000.0" | bc`
+echo 'Total time (sec) = '$total>>$timefile
+echo '------------------------------------------------------'>>$timefile
+rm -f $temp
+rm -f timing.temp   	
+  

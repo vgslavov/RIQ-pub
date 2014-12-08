@@ -1,0 +1,15 @@
+prefix ncbit: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl>
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix owl: <http://www.w3.org/2002/07/owl#>
+prefix sider: <http://wifo5-04.informatik.uni-mannheim.de/sider/resource/sider/>
+prefix dbpediaowl: <http://dbpedia.org/ontology/>
+prefix dbprop: <http://dbpedia.org/property/>
+prefix user: <http://localdb.org/>
+select * where {
+  service <http://dbpedia.org/sparql>
+  {
+    ?s a ?o .
+    FILTER (regex(?s, "hadoop", "i"))
+  }
+}

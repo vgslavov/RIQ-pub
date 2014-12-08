@@ -1,0 +1,11 @@
+SELECT ?s
+WHERE
+{ 
+  graph ?s {
+   
+   <http://bio2rdf.org/drugbank:DB00482> <http://bio2rdf.org/bio2rdf_resource:urlList> <http://bio2rdf.org/drugbank:DB00484> .
+
+  }
+}
+
+

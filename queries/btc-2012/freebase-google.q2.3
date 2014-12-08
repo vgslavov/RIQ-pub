@@ -1,0 +1,14 @@
+# Freebase
+# Query 2.3
+ 
+select ?filmPerformance ?actor ?film ?name ?initialReleaseDate ?lang ?genre ?starring
+where
+{
+    ?filmPerformance <http://rdf.freebase.com/ns/film.performance.actor> ?actor .
+    ?filmPerformance <http://rdf.freebase.com/ns/film.performance.film> ?film .
+    ?film <http://rdf.freebase.com/ns/type.object.name> ?name .
+    ?film <http://rdf.freebase.com/ns/film.film.initial_release_date> ?initialReleaseDate .
+    ?film <http://rdf.freebase.com/ns/film.film.language> ?lang .
+    ?film <http://rdf.freebase.com/ns/film.film.genre> ?genre .
+    ?film <http://rdf.freebase.com/ns/film.film.starring> ?starring .
+}

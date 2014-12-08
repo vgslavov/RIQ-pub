@@ -1,0 +1,8 @@
+prefix ncbit: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl>
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix owl: <http://www.w3.org/2002/07/owl#>
+
+select ?drug ?p ?o
+where {
+  ?drug ?p ?o .
+}

@@ -1,0 +1,27 @@
+# Q1 (BIG: 16 joins)
+# Querying for a professor who is an advisor to the given set of students
+
+PREFIX ub: <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+SELECT ?professor ?course ?email ?phone ?research ?udergradUnv ?masterUnv ?PhdUnv WHERE
+{
+   # Professor details
+   ?professor <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#FullProfessor> .
+   ?professor <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#name> "FullProfessor1" .
+   ?professor <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#teacherOf> ?course.
+   ?professor <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#undergraduateDegreeFrom> ?undergradUnv  .
+   ?professor <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#mastersDegreeFrom> ?masterUnv .
+   ?professor <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#doctoralDegreeFrom> ?PhdUnv .
+   ?professor <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#worksFor> <http://www.Department12.University1.edu> .
+   ?professor <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#emailAddress> ?email .
+   ?professor <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#telephone> ?phone .
+   ?professor <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#researchInterest> ?research .
+   <http://www.Department12.University1.edu/FullProfessor1/Publication2> <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#publicationAuthor> ?professor .
+   <http://www.Department12.University1.edu/FullProfessor1/Publication17> <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#publicationAuthor> ?professor .
+
+   # List of students
+   <http://www.Department12.University1.edu/UndergraduateStudent36> <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#advisor> ?professor .
+   <http://www.Department12.University1.edu/UndergraduateStudent170> <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#advisor> ?professor .
+   <http://www.Department12.University1.edu/GraduateStudent41> <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#advisor> ?professor .
+   <http://www.Department12.University1.edu/GraduateStudent65> <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#advisor> ?professor .
+}

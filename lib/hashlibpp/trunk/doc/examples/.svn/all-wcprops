@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svnroot/hashlib2plus/!svn/ver/50/trunk/doc/examples
+END
+sha512example.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/hashlib2plus/!svn/ver/50/trunk/doc/examples/sha512example.cpp
+END
+md5example.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/hashlib2plus/!svn/ver/50/trunk/doc/examples/md5example.cpp
+END
+sha256example.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/hashlib2plus/!svn/ver/50/trunk/doc/examples/sha256example.cpp
+END
+sha384example.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/hashlib2plus/!svn/ver/41/trunk/doc/examples/sha384example.cpp
+END
+sha1example.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/hashlib2plus/!svn/ver/50/trunk/doc/examples/sha1example.cpp
+END

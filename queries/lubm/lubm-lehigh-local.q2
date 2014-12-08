@@ -1,0 +1,17 @@
+# Query2
+# This query increases in complexity: 3 classes and 3 properties are involved. Additionally, 
+# there is a triangular pattern of relationships between the objects involved.
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX ub: <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#>
+
+SELECT ?X ?Y ?Z
+WHERE
+{
+  ?X <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> </home/vsfgd/datasets/lubm/univ-bench.owl#GraduateStudent> .
+  ?Y <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> </home/vsfgd/datasets/lubm/univ-bench.owl#University> .
+  ?Z <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> </home/vsfgd/datasets/lubm/univ-bench.owl#Department> .
+  ?X </home/vsfgd/datasets/lubm/univ-bench.owl#memberOf> ?Z .
+  ?Z </home/vsfgd/datasets/lubm/univ-bench.owl#subOrganizationOf> ?Y .
+  ?X </home/vsfgd/datasets/lubm/univ-bench.owl#undergraduateDegreeFrom> ?Y .
+}

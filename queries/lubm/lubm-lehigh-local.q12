@@ -1,0 +1,23 @@
+# Query12
+# The benchmark data do not produce any instances of class Chair. Instead, each
+# Department individual is linked to the chair professor of that department by 
+# property headOf. Hence this query requires realization, i.e., inference that
+# that professor is an instance of class Chair because he or she is the head of a
+# department. Input of this query is small as well.
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX ub: <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#>
+
+SELECT ?X ?Y
+WHERE
+{
+  #?X <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> </home/vsfgd/datasets/lubm/univ-bench.owl#Chair> .
+
+  #?X <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> </home/vsfgd/datasets/lubm/univ-bench.owl#AssociateProfessor> .
+  #?X <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> </home/vsfgd/datasets/lubm/univ-bench.owl#AssistantProfessor> .
+  ?X <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> </home/vsfgd/datasets/lubm/univ-bench.owl#FullProfessor> .
+
+  ?Y <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> </home/vsfgd/datasets/lubm/univ-bench.owl#Department> .
+  ?X </home/vsfgd/datasets/lubm/univ-bench.owl#worksFor> ?Y .
+  ?Y </home/vsfgd/datasets/lubm/univ-bench.owl#subOrganizationOf> <http://www.University0.edu> .
+}

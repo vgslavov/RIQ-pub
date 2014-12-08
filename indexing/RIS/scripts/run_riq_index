@@ -1,0 +1,35 @@
+#!/bin/bash
+
+#set -x
+
+if [ $# -ne 1 ]; then
+  echo "Usage: $0 <config file>"
+  exit
+fi
+
+CONFIG=$1
+
+if [ ! -f $CONFIG ]; then
+  echo "config not found"
+  exit
+fi
+
+source $CONFIG
+
+LOGPRE=$LOG/index.`basename $PV_FILE`
+
+if [ $USELSH -eq 1 ]; then
+  echo "running riq using LSH..."
+  $TIME -o $LOGPRE.riq.time $RIQ -D $DBNAME -E $DBENV -b $NUMBUF -d $RISRUN/index -I -L -k $LSHK -l $LSHL -i $IRRPOLY -H $HASH_FILE -m $MAXSIGS -C $MAXCCSIZE -N $MINCCSIZE -U $MAXCCUNIONSIZE -P $PV_FILE $SKIPLIST $VERBOSE &> $LOGPRE.riq.log
+elif [ $USEJ -eq 1 ]; then
+  echo "running riq using Jaccard..."
+  $TIME -o $LOGPRE.riq.time $RIQ -D $DBNAME -E $RISRUN/index/$DBENV -b $NUMBUF -d $RISRUN/index -I -J -f $FANOUT -s $SEEDSIZE -m $MAXSIGS -P $PV_FILE $VERBOSE &> $LOGPRE.riq.log
+fi
+
+echo "running cbf..."
+$TIME -o $LOGPRE.cbf.time $CBF -c $CAPACITY -e $ERROR_RATE -d $RISRUN/index -M $CBFMETA_FILE &> $LOGPRE.cbf.log
+
+echo "running split_graphs..."
+$TIME -o $LOGPRE.split.time $SPLITG $NT_FILE $OFF_FILE $PREFIX_FILE $SUFFIX &> $LOGPRE.split.log
+
+echo "done"

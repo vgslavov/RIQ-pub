@@ -1,0 +1,32 @@
+# Q2 (BIG: 21 joins)
+# Querying for the co-authors of research papers such that there is a
+# student-professor relationship between the co-authors.
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+SELECT ?x ?name1 ?unv ?Email1 ?phone1 ?course  ?professor ?name2 ?unv2 ?unv3 ?Email2 ?phon2 ?RearchInt ?course2 ?publication1  WHERE
+{
+    # Student details
+    ?x <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#GraduateStudent> .
+    ?x <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#name> ?name1 .
+    ?x <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#memberOf> <http://www.Department0.University1167.edu> .
+    ?x <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#undergraduateDegreeFrom> ?univ .
+    ?x <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#emailAddress> ?Email1 .
+    ?x <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#telephone> ?phone1 .
+    ?x <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#takesCourse> ?course .
+    ?x <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#advisor> ?professor .
+    ?x <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#ResearchAssistant> .
+    ?publication1 <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#publicationAuthor> ?x .
+
+    # Professor details
+    ?professor <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#AssociateProfessor> .
+    ?professor <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#name> ?name2 .
+    ?professor <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#undergraduateDegreeFrom> ?univ1 .
+    ?professor <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#mastersDegreeFrom> ?univ2 .
+    ?professor <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#doctoralDegreeFrom> ?univ3 .
+    ?professor <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#worksFor> <http://www.Department0.University1167.edu> .
+    ?professor <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#emailAddress> ?Email2 .
+    ?professor <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#telephone> ?phone2 .
+    ?professor <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#researchInterest> ?ResearchInt .
+    ?professor <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#teacherOf> ?course2 .
+    ?publication1 <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#publicationAuthor> ?professor .
+}

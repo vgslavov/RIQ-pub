@@ -1,0 +1,16 @@
+# Dataset: Freebase
+# Query: 2.3
+
+SELECT  ?person1 ?person2 ?personName1 ?personName2 ?location1 ?location2 ?sameloc ?place
+WHERE
+{
+  ?person1 <http://rdf.freebase.com/ns/people.place_lived.person> ?personName1 .
+  ?person1 <http://rdf.freebase.com/ns/people.place_lived.location> ?location1 .
+  ?person2 <http://rdf.freebase.com/ns/people.place_lived.person> ?personName2 .
+  ?person2 <http://rdf.freebase.com/ns/people.place_lived.location> ?location2 .
+
+  ?sameloc <http://rdf.freebase.com/ns/location.location.contains> ?location1 .
+  ?sameloc <http://rdf.freebase.com/ns/location.location.contains> ?location2 .
+  ?sameloc <http://rdf.freebase.com/ns/location.location.containedby> ?place .
+  #?sameloc <http://rdf.freebase.com/ns/location.location.containedby> <http://rdf.freebase.com/ns/en.united_states> .
+}

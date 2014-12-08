@@ -1,0 +1,187 @@
+#! /bin/bash
+
+#set -x
+
+if [ $# -ne 5 ]; then
+  echo "Usage: $0 <config file> <query file> <rdf3x|tdb> <cold|warm> <min/max SPO order>"
+  exit
+fi
+
+CONFIG=$1
+QUERY_FILE=$2
+QUERY_WITH=$3
+CACHE=$4
+SPO_ORDER=$5
+
+MAX=3
+FORMAT="csv"
+
+if [ ! -f $CONFIG ]; then
+  echo "config not found"
+  exit
+fi
+
+source $CONFIG
+
+if [ "$CACHE" != "cold" -a "$CACHE" != "warm" ]; then
+  echo "Invalid cache setting"
+  exit
+fi
+
+if [ "$SPO_ORDER" != "min" -a "$SPO_ORDER" != "max" ]; then
+  echo "Invalid SPO order"
+  exit
+fi
+
+# for sig query
+QUERY_BIN_PATH=$RISRUN/data/${QUERY_FILE}.bin
+QUERY_BIN=${QUERY_FILE}.bin
+
+QCBFS="/tmp/dablooms_query.*"
+# TODO: check if exist?
+echo "deleting old query CBFs..."
+rm -rf $QCBFS
+
+if [ "$QUERY_WITH" == "tdb" ]; then
+  GRAPHIDS=GRAPHIDS.tdb
+elif [ "$QUERY_WITH" == "rdf3x" ]; then
+  GRAPHIDS=GRAPHIDS.db
+else
+  echo "Invalid refinement tool"
+  exit
+fi
+
+REFINESCRIPT=$HOME/RIS/scripts/run_query_all.sh
+DBDIR=$RISRUN/index/$GRAPHIDS/
+SCL="scale=3"
+
+# use sig
+#$CODE/Query_Processor/run_query_reader $QUERY_FILE $QUERY_BIN_PATH
+#echo "$QUERY_FILE.bin created..."
+
+PV_FILE_SUFFIX="sigv2.DAT"
+LOG_PRE=$LOG/query.`basename $PV_FILE .$PV_FILE_SUFFIX`.`basename $QUERY_FILE`
+
+echo "clearing cache..."
+$CLEAR_CACHE
+
+echo "identifying candidates (cold)..."
+# use sparql query
+$TIME -o $LOG_PRE.cold.timev $RIQ -d $RISRUN/index -Q -r $SPO_ORDER -A $QUERY_FILE -c $CAPACITY -e $ERROR_RATE -M $CBFMETA_FILE >& $LOG_PRE.cold.log
+# use sig
+#$TIME -o $LOG_PRE.cold.timev $RIQ -d $RISRUN/index -Q -q $QUERY_BIN_PATH -c $CAPACITY -e $ERROR_RATE -M $CBFMETA_FILE >& $LOG_PRE.cold.log
+
+#exit
+
+echo "identifying candidates (warm)..."
+# use sparql query
+$TIME -o $LOG_PRE.warm.timev $RIQ -d $RISRUN/index -Q -r $SPO_ORDER -A $QUERY_FILE -c $CAPACITY -e $ERROR_RATE -M $CBFMETA_FILE >& $LOG_PRE.warm.log
+# use sig
+#$TIME -o $LOG_PRE.warm.timev $RIQ -d $RISRUN/index -Q -q $QUERY_BIN_PATH -c $CAPACITY -e $ERROR_RATE -M $CBFMETA_FILE >& $LOG_PRE.warm.log
+
+#exit
+
+CANDIDATES=$LOG_PRE.candidates
+
+# overwrite
+grep '^All lists matched' $LOG_PRE.cold.log | awk '{print $NF}' > $CANDIDATES
+ncandidates=`wc -l $CANDIDATES | awk '{print $1}'`
+
+echo "clearing cache..."
+$CLEAR_CACHE
+
+#i=1
+#while [ $i -le $MAX ]; do
+  j=1
+  echo "running $QUERY_WITH on candidate groups:"
+  for line in `cat $CANDIDATES`; do
+    echo
+    echo "$line ($j/$ncandidates candidates)"
+    $REFINESCRIPT $DBDIR/$line $QUERY_FILE $QUERY_WITH $CACHE $MAX $FORMAT
+    j=`expr $j + 1`
+  done
+#  i=`expr $i + 1`
+#done
+
+coldftime=$(grep "Total query time" $LOG_PRE.cold.log | awk '{print $NF}')
+warmftime=$(grep "Total query time" $LOG_PRE.warm.log | awk '{print $NF}')
+#ncandidates=$(grep "Number of groups matched" $LOG_PRE.cold.log | awk '{print $NF}')
+
+# XXX: all depend on run_query_jenatdb format
+OUTLOG_PRE=$QUERY_FILE.$CACHE.$QUERY_WITH.$FORMAT
+FINAL_LOG=$OUTLOG_PRE.final.time
+AVG_LOG=$OUTLOG_PRE.avg.time
+
+# jena tdb
+# TODO: fix counting (doesn't work with more than 1 candidate)
+if [ "$QUERY_WITH" == "tdb" ]; then
+  # any of 1,2,3 would work
+  nresults=`wc -l $OUTLOG_PRE.1.results | awk '{print $1}'`
+  # empty lines indicate no results for csv results format
+  nempty=`grep -c -e '^$' $OUTLOG_PRE.1.results`
+  # subtract headers for each candidate
+  nresults=`expr $nresults - $ncandidates - $nempty`
+  nmatches=`expr $ncandidates - $nempty`
+# rdf-3x
+elif [ "$QUERY_WITH" == "rdf3x" ]; then
+  nresults=`grep -c -e '^<' $OUTLOG_PRE.1.results`
+  nempty=`grep -c -e '^<empty' $OUTLOG_PRE.1.results`
+  nresults=`expr $nresuls - $nempty`
+  nmatches=`expr $ncandidates - $nempty`
+fi
+
+# overwrite
+echo "CACHE: $CACHE" > $FINAL_LOG
+echo "SPO order: $SPO_ORDER" >> $FINAL_LOG
+echo >> $FINAL_LOG
+echo "# of results: $nresults" >> $FINAL_LOG
+echo "# of candidates: $ncandidates" >> $FINAL_LOG
+echo "# of matches: $nmatches" >> $FINAL_LOG
+echo >> $FINAL_LOG
+echo "RIQ cold filtering time (s): $coldftime" >> $FINAL_LOG
+echo "RIQ warm filtering time (s): $warmftime" >> $FINAL_LOG
+
+refine_bash=0
+refine_jena=0
+total_major_pf=0
+total_minor_pf=0
+total_du=0
+while read line; do
+  set -- `echo $line | awk '{print $4, $6, $8, $10, $12}'`
+  bash_avg=$1
+  jena_avg=$2
+  major_pf_avg=$3
+  minor_pf_avg=$4
+  du_kb=$5
+
+  refine_bash=`echo "$SCL;$refine_bash+$bash_avg" | bc`
+  refine_jena=`echo "$SCL;$refine_jena+$jena_avg" | bc`
+  total_major_pf=`echo "$SCL;$total_major_pf+$major_pf_avg" | bc`
+  total_minor_pf=`echo "$SCL;$total_minor_pf+$minor_pf_avg" | bc`
+  total_du=`echo "$SCL;$total_du+$du_kb/1024" | bc`
+done < "$AVG_LOG"
+
+
+if [ "$CACHE" == "cold" ]; then
+  total_bash=`echo "$SCL;$refine_bash+$coldftime" | bc`
+  total_jena=`echo "$SCL;$refine_jena+$coldftime" | bc`
+else
+  total_bash=`echo "$SCL;$refine_bash+$warmftime" | bc`
+  total_jena=`echo "$SCL;$refine_jena+$warmftime" | bc`
+fi
+
+echo >> $FINAL_LOG
+echo "Avg (of $MAX) refinement time (with Bash): $refine_bash" >> $FINAL_LOG
+echo "Total query time (with Bash): $total_bash" >> $FINAL_LOG
+echo >> $FINAL_LOG
+echo "Avg (of $MAX) refinement time (with Jena): $refine_jena" >> $FINAL_LOG
+echo "Total query time (with Jena): $total_jena" >> $FINAL_LOG
+echo >> $FINAL_LOG
+echo "Total disk usage (MB): $total_du" >> $FINAL_LOG
+echo >> $FINAL_LOG
+echo "Avg (of $MAX) major page faults: $total_major_pf" >> $FINAL_LOG
+echo "Avg (of $MAX) minor page faults: $total_minor_pf" >> $FINAL_LOG
+
+echo
+echo "run_riq_query2:"
+cat $FINAL_LOG

@@ -1,0 +1,32 @@
+# Q2 (BIG: 21 joins)
+# Querying for the co-authors of research papers such that there is a
+# student-professor relationship between the co-authors.
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+SELECT ?x ?name1 ?unv ?Email1 ?phone1 ?course  ?professor ?name2 ?unv2 ?unv3 ?Email2 ?phon2 ?RearchInt ?course2 ?publication1  WHERE
+{
+    # Student details
+    ?x <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> </home/vsfgd/datasets/lubm/univ-bench.owl#GraduateStudent> .
+    ?x </home/vsfgd/datasets/lubm/univ-bench.owl#name> ?name1 .
+    ?x </home/vsfgd/datasets/lubm/univ-bench.owl#memberOf> <http://www.Department0.University1167.edu> .
+    ?x </home/vsfgd/datasets/lubm/univ-bench.owl#undergraduateDegreeFrom> ?univ .
+    ?x </home/vsfgd/datasets/lubm/univ-bench.owl#emailAddress> ?Email1 .
+    ?x </home/vsfgd/datasets/lubm/univ-bench.owl#telephone> ?phone1 .
+    ?x </home/vsfgd/datasets/lubm/univ-bench.owl#takesCourse> ?course .
+    ?x </home/vsfgd/datasets/lubm/univ-bench.owl#advisor> ?professor .
+    ?x <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> </home/vsfgd/datasets/lubm/univ-bench.owl#ResearchAssistant> .
+    ?publication1 </home/vsfgd/datasets/lubm/univ-bench.owl#publicationAuthor> ?x .
+
+    # Professor details
+    ?professor <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> </home/vsfgd/datasets/lubm/univ-bench.owl#AssociateProfessor> .
+    ?professor </home/vsfgd/datasets/lubm/univ-bench.owl#name> ?name2 .
+    ?professor </home/vsfgd/datasets/lubm/univ-bench.owl#undergraduateDegreeFrom> ?univ1 .
+    ?professor </home/vsfgd/datasets/lubm/univ-bench.owl#mastersDegreeFrom> ?univ2 .
+    ?professor </home/vsfgd/datasets/lubm/univ-bench.owl#doctoralDegreeFrom> ?univ3 .
+    ?professor </home/vsfgd/datasets/lubm/univ-bench.owl#worksFor> <http://www.Department0.University1167.edu> .
+    ?professor </home/vsfgd/datasets/lubm/univ-bench.owl#emailAddress> ?Email2 .
+    ?professor </home/vsfgd/datasets/lubm/univ-bench.owl#telephone> ?phone2 .
+    ?professor </home/vsfgd/datasets/lubm/univ-bench.owl#researchInterest> ?ResearchInt .
+    ?professor </home/vsfgd/datasets/lubm/univ-bench.owl#teacherOf> ?course2 .
+    ?publication1 </home/vsfgd/datasets/lubm/univ-bench.owl#publicationAuthor> ?professor .
+}

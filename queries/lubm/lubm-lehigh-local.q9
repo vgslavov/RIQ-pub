@@ -1,0 +1,27 @@
+# Query9
+# Besides the aforementioned features of class Student and the wide hierarchy of
+# class Faculty, like Query 2, this query is characterized by the most classes and
+# properties in the query set and there is a triangular pattern of relationships.
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX ub: <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#>
+
+SELECT ?X ?Y ?Z
+WHERE
+{
+  #?X <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> </home/vsfgd/datasets/lubm/univ-bench.owl#Student> .
+  ?X <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> </home/vsfgd/datasets/lubm/univ-bench.owl#GraduateStudent> .
+
+  #?Y <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> </home/vsfgd/datasets/lubm/univ-bench.owl#Faculty> .
+  #?Y <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> </home/vsfgd/datasets/lubm/univ-bench.owl#Lecturer> .
+  #?Y <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> </home/vsfgd/datasets/lubm/univ-bench.owl#FullProfessor> .
+  #?Y <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> </home/vsfgd/datasets/lubm/univ-bench.owl#AssociateProfessor> .
+  ?Y <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> </home/vsfgd/datasets/lubm/univ-bench.owl#AssistantProfessor> .
+
+  #?Z <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> </home/vsfgd/datasets/lubm/univ-bench.owl#Course> .
+  ?Z <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> </home/vsfgd/datasets/lubm/univ-bench.owl#GraduateCourse> .
+
+  ?X </home/vsfgd/datasets/lubm/univ-bench.owl#advisor> ?Y .
+  ?Y </home/vsfgd/datasets/lubm/univ-bench.owl#teacherOf> ?Z .
+  ?X </home/vsfgd/datasets/lubm/univ-bench.owl#takesCourse> ?Z .
+}

@@ -1,0 +1,10 @@
+package ris;
+
+message HashValue {
+	required string hash = 1;
+	required int32 freq = 2;
+}
+
+message LSHindex {
+	repeated HashValue hashvalue = 1;
+}

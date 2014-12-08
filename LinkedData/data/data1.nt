@@ -1,0 +1,38 @@
+<http://bio2rdf.org/bio2rdf_dataset:bio2rdf-drugbank-20121008> <http://www.w3.org/2000/01/rdf-schema#label> "drugbank dataset by Bio2RDF on 2012-10-08 [bio2rdf_dataset:bio2rdf-drugbank-20121008]"  .
+<http://bio2rdf.org/bio2rdf_dataset:bio2rdf-drugbank-20121008> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://rdfs.org/ns/void#Dataset>  .
+<http://bio2rdf.org/bio2rdf_dataset:bio2rdf-drugbank-20121008> <http://purl.org/dc/terms/created> "2012-10-08"^^<http://www.w3.org/2001/XMLSchema#date>  .
+<http://bio2rdf.org/bio2rdf_dataset:bio2rdf-drugbank-20121008> <http://purl.org/dc/terms/creator> <https://github.com/bio2rdf/bio2rdf-scripts/blob/master/drugbank/drugbank.php>  .
+<http://bio2rdf.org/bio2rdf_dataset:bio2rdf-drugbank-20121008> <http://purl.org/dc/terms/publisher> <http://bio2rdf.org>  .
+<http://bio2rdf.org/bio2rdf_dataset:bio2rdf-drugbank-20121008> <http://purl.org/dc/terms/rights> "use-share-modify"  .
+<http://bio2rdf.org/bio2rdf_dataset:bio2rdf-drugbank-20121008> <http://purl.org/dc/terms/rights> "attribution"  .
+<http://bio2rdf.org/bio2rdf_dataset:bio2rdf-drugbank-20121008> <http://purl.org/dc/terms/rights> "restricted-by-source-license"  .
+<http://bio2rdf.org/bio2rdf_dataset:bio2rdf-drugbank-20121008> <http://purl.org/dc/terms/license> <http://creativecommons.org/by-attribution>  .
+<http://bio2rdf.org/bio2rdf_dataset:bio2rdf-drugbank-20121008> <http://rdfs.org/ns/void#dataDump> <http://download.bio2rdf.org/rdf/drugbank/drugbank.nt.gz>  .
+<http://bio2rdf.org/bio2rdf_dataset:bio2rdf-drugbank-20121008> <http://rdfs.org/ns/void#sparqlEndpoint> <http://drugbank.bio2rdf.org/sparql>  .
+<http://bio2rdf.org/bio2rdf_dataset:bio2rdf-drugbank-20121008> <http://www.w3.org/ns/prov#wasDerivedFrom> <http://bio2rdf.org/bio2rdf_dataset:drugbank>  .
+<http://bio2rdf.org/bio2rdf_dataset:drugbank> <http://www.w3.org/2000/01/rdf-schema#label> "drugbank dataset [bio2rdf_dataset:drugbank]"  .
+<http://bio2rdf.org/bio2rdf_dataset:drugbank> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://rdfs.org/ns/void#Dataset>  .
+<http://bio2rdf.org/bio2rdf_dataset:drugbank> <http://xmlns.com/foaf/0.1/homepage> <http://drugbank.ca>  .
+<http://bio2rdf.org/bio2rdf_dataset:drugbank> <http://purl.org/dc/terms/rights> "free to use"  .
+<http://bio2rdf.org/bio2rdf_dataset:drugbank> <http://purl.org/dc/terms/rights> "commercial use requires licensing"  .
+<http://bio2rdf.org/bio2rdf_dataset:drugbank> <http://purl.org/dc/terms/license> <http://www.drugbank.ca/about>  .
+<http://bio2rdf.org/bio2rdf_dataset:drugbank> <http://www.w3.org/2000/01/rdf-schema#seeAlso> <http://www.drugbank.ca/system/downloads/current/>  .
+<http://bio2rdf.org/drugbank:DB00673>	 <http://bio2rdf.org/bio2rdf_resource:urlList>	<http://bio2rdf.org/html/drugbank:DB00673> .
+<http://bio2rdf.org/drugbank:DB01238>	 <http://bio2rdf.org/bio2rdf_resource:urlList>	<http://bio2rdf.org/html/drugbank:DB01238> .
+<http://bio2rdf.org/drugbank:DB01124> <http://bio2rdf.org/bio2rdf_resource:urlList> <http://bio2rdf.org/drugbank:DB01124> .
+<http://bio2rdf.org/drugbank:DB01118> <http://bio2rdf.org/bio2rdf_resource:urlList> <http://bio2rdf.org/drugbank:DB01118> .
+<http://bio2rdf.org/drugbank:db01611> <http://bio2rdf.org/bio2rdf_resource:urlList> <http://bio2rdf.org/drugbank:db01611> .
+<http://bio2rdf.org/drugbank:DB01182> <http://bio2rdf.org/bio2rdf_resource:urlList> <http://bio2rdf.org/drugbank:DB01182> .
+<http://bio2rdf.org/drugbank:DB00334> <http://bio2rdf.org/bio2rdf_resource:urlList> <http://bio2rdf.org/drugbank:DB00334> .
+<http://bio2rdf.org/drugbank:DB00227> <http://bio2rdf.org/bio2rdf_resource:urlList> <http://bio2rdf.org/drugbank:DB00227> .
+<http://bio2rdf.org/drugbank:DB01211> <http://bio2rdf.org/bio2rdf_resource:urlList> <http://bio2rdf.org/drugbank:DB01211> .
+<http://bio2rdf.org/drugbank:DB06700> <http://bio2rdf.org/bio2rdf_resource:urlList> <http://bio2rdf.org/drugbank:DB06700> .
+<http://bio2rdf.org/drugbank:DB00333> <http://bio2rdf.org/bio2rdf_resource:urlList> <http://bio2rdf.org/drugbank:DB00333> .
+<http://bio2rdf.org/drugbank:DB00850> <http://bio2rdf.org/bio2rdf_resource:urlList> <http://bio2rdf.org/drugbank:DB00850> .
+<http://bio2rdf.org/drugbank:DB01156> <http://bio2rdf.org/bio2rdf_resource:urlList> <http://bio2rdf.org/drugbank:DB01156> .
+<http://bio2rdf.org/drugbank:DB00328> <http://bio2rdf.org/bio2rdf_resource:urlList> <http://bio2rdf.org/drugbank:DB00328> .
+<http://bio2rdf.org/drugbank:DB00758> <http://bio2rdf.org/bio2rdf_resource:urlList> <http://bio2rdf.org/drugbank:DB00758> .
+<http://bio2rdf.org/drugbank:DB00482> <http://bio2rdf.org/bio2rdf_resource:urlList> <http://bio2rdf.org/drugbank:DB00482> .
+<http://bio2rdf.org/drugbank:DB00482> <http://bio2rdf.org/bio2rdf_resource:urlList> <http://bio2rdf.org/drugbank:DB00483> .
+<http://bio2rdf.org/drugbank:DB00482> <http://bio2rdf.org/bio2rdf_resource:urlList> <http://bio2rdf.org/drugbank:DB00484> .
+

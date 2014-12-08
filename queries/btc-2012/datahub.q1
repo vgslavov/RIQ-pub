@@ -1,0 +1,27 @@
+# Dataset: Datahub (0)
+# Query: 1
+
+SELECT ?sub0 ?obj0 ?sub1
+WHERE
+{
+    ?sub0 <http://purl.org/collections/nl/am/acquisitionDate> "1980-05-16" .
+    ?sub0 <http://purl.org/collections/nl/am/acquisitionMethod> <http://purl.org/collections/nl/am/t-14382> .
+    ?sub0 <http://purl.org/collections/nl/am/associationSubject> ?obj0 .
+    ?sub0 <http://purl.org/collections/nl/am/contentMotifGeneral> <http://purl.org/collections/nl/am/t-8782> .
+    ?sub0 <http://purl.org/collections/nl/am/creditLine> <http://purl.org/collections/nl/am/t-14773> .
+    ?sub0 <http://purl.org/collections/nl/am/material> <http://purl.org/collections/nl/am/t-3249> .
+    ?sub0 <http://purl.org/collections/nl/am/objectCategory> <http://purl.org/collections/nl/am/t-15606> .
+    ?sub0 <http://purl.org/collections/nl/am/objectName> <http://purl.org/collections/nl/am/t-10444> .
+    ?sub0 <http://purl.org/collections/nl/am/objectNumber> "KA 17150" .
+    ?sub0 <http://purl.org/collections/nl/am/priref> "23182" .
+    ?sub0 <http://purl.org/collections/nl/am/productionDateEnd> "1924" .
+    ?sub0 <http://purl.org/collections/nl/am/productionDateStart> "1924" .
+    ?sub0 <http://purl.org/collections/nl/am/productionPlace> <http://purl.org/collections/nl/am/t-624> .
+    # duplicate triple
+    #?sub0 <http://purl.org/collections/nl/am/relatedObjectReference> ?sub1 .
+    ?sub0 <http://purl.org/collections/nl/am/title> "Plate commemorating the first Amsterdam-Batavia flight"@en .
+    ?sub0 <http://www.openarchives.org/ore/terms/proxyFor> <http://purl.org/collections/nl/am/physical-23182> .
+    ?sub0 <http://www.openarchives.org/ore/terms/proxyIn> <http://purl.org/collections/nl/am/aggregation-23182> .
+    ?sub0 <http://purl.org/collections/nl/am/relatedObjectReference> ?sub1 .
+    ?sub1 <http://purl.org/collections/nl/am/relatedObjectReference> ?sub0 .
+}

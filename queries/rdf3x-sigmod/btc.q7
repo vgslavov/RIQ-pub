@@ -1,0 +1,16 @@
+prefix geo: <http://www.geonames.org/>
+prefix pos: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+prefix dbpedia: <http://dbpedia.org/property/>
+prefix dbpediares: <http://dbpedia.org/resource/>
+prefix owl: <http://www.w3.org/2002/07/owl#>
+
+select distinct ?a ?b ?lat ?long where {
+    ?a dbpedia:spouse ?b.
+    ?a dbpedia:wikilink dbpediares:actor.
+    ?b dbpedia:wikilink dbpediares:actor.
+    ?a dbpedia:placeOfBirth ?c.
+    ?b dbpedia:placeOfBirth ?c.
+    ?c owl:sameAs ?c2.
+    ?c2 pos:lat ?lat.
+    ?c2 pos:long ?long.
+}

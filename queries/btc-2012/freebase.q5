@@ -1,0 +1,21 @@
+# Dataset: Freebase
+# Query: 5
+
+SELECT ?person1 ?school1 ?person2 ?school2 ?university ?mascot ?mascotName
+WHERE
+{
+        ?person1 <http://rdf.freebase.com/ns/people.person.gender> <http://rdf.freebase.com/ns/en.male> .
+        ?person1  <http://rdf.freebase.com/ns/people.person.education> ?school1 .
+
+        ?person2 <http://rdf.freebase.com/ns/people.person.gender> <http://rdf.freebase.com/ns/en.female> .
+        ?person2  <http://rdf.freebase.com/ns/people.person.education> ?school2 .
+
+        ?school1 <http://rdf.freebase.com/ns/education.education.institution> ?university .
+        ?school2 <http://rdf.freebase.com/ns/education.education.institution> ?university .
+
+        ?mascot <http://rdf.freebase.com/ns/education.school_mascot.school> ?university .
+        ?mascot <http://rdf.freebase.com/ns/type.object.name> "George Tirebiter"@en .
+
+        #?mascot <http://rdf.freebase.com/ns/type.object.name> ?mascotName .
+        #?mascot <http://rdf.freebase.com/ns/type.object.name> "John Harvard"@en .
+}

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -x
+
+#USER=`whoami`
+USER="vsfgd"
+HOME="/home/$USER"
+DATA="$HOME/RIS/indexing/RIS.RUN/index"
+RDF3XSCRIPT="$HOME/RIS/scripts/create_index-rdf3x.sh"
+
+$RDF3XSCRIPT $DATA/GRAPHIDS.n3 $DATA/GRAPHIDS.db $DATA/db.log

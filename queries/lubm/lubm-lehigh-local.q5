@@ -1,0 +1,18 @@
+# Query5
+# This query assumes subClassOf relationship between Person and its subclasses
+# and subPropertyOf relationship between memberOf and its subproperties.
+# Moreover, class Person features a deep and wide hierarchy.
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX ub: <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#>
+
+SELECT ?X
+WHERE
+{
+  #?X <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> </home/vsfgd/datasets/lubm/univ-bench.owl#Person> .
+
+  #?X <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> </home/vsfgd/datasets/lubm/univ-bench.owl#GraduateStudent> .
+  ?X <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> </home/vsfgd/datasets/lubm/univ-bench.owl#UndergraduateStudent> .
+
+  ?X </home/vsfgd/datasets/lubm/univ-bench.owl#memberOf> <http://www.Department0.University0.edu> .
+}

@@ -1,0 +1,20 @@
+# Query13
+# Property hasAlumnus is defined in the benchmark ontology as the inverse of
+# property degreeFrom, which has three subproperties: undergraduateDegreeFrom, 
+# mastersDegreeFrom, and doctoralDegreeFrom. The benchmark data state a person as
+# an alumnus of a university using one of these three subproperties instead of
+# hasAlumnus. Therefore, this query assumes subPropertyOf relationships between 
+# degreeFrom and its subproperties, and also requires inference about inverseOf.
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX ub: <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#>
+
+SELECT ?X
+WHERE
+{
+  #?X <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> </home/vsfgd/datasets/lubm/univ-bench.owl#Person> .
+
+  ?X <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> </home/vsfgd/datasets/lubm/univ-bench.owl#GraduateStudent> .
+
+  <http://www.University0.edu> </home/vsfgd/datasets/lubm/univ-bench.owl#hasAlumnus> ?X .
+}

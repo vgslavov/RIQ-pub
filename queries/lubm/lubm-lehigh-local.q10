@@ -1,0 +1,15 @@
+# Query10
+# This query differs from Query 6, 7, 8 and 9 in that it only requires the
+# (implicit) subClassOf relationship between GraduateStudent and Student, i.e., 
+#subClassOf rela-tionship between UndergraduateStudent and Student does not add
+# to the results.
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX ub: <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#>
+
+SELECT ?X
+WHERE
+{
+  ?X <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> </home/vsfgd/datasets/lubm/univ-bench.owl#Student> .
+  ?X </home/vsfgd/datasets/lubm/univ-bench.owl#takesCourse> <http://www.Department0.University0.edu/GraduateCourse0> .
+}

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -x
+
+#USER=`whoami`
+USER="vsfgd"
+HOME="/home/$USER"
+DATA="$HOME/RIS/indexing/RIS.RUN/index"
+JENASCRIPT="$HOME/RIS/scripts/create_index-jena.sh"
+LOADER=2
+
+$JENASCRIPT $LOADER $DATA/GRAPHIDS.n3 $DATA/GRAPHIDS.tdb $DATA/tdb.log

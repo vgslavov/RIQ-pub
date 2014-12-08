@@ -1,0 +1,150 @@
+PREFIX ub: <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+# L1
+
+SELECT ?p ?c ?e ?ph ?res ?uguni ?msuni ?phduni ?s1n ?s2n ?s1 ?s2 ?pub WHERE {
+   ?s1 ub:advisor ? .
+   ?s1 ub:name ?s1n .
+   ?s1 rdf:type ub:UndergraduateStudent .
+   ?s2 ub:advisor ?p .
+   ?s2 ub:name ?s2n .
+   ?s2 rdf:type ub:GraduateStudent .
+   ?p rdf:type ub:FullProfessor .
+   ?p ub:name "FullProfessor7" .
+   ?p ub:teacherOf ?c .
+   ?p ub:undergraduateDegreeFrom ?uguni .
+   ?p ub:mastersDegreeFrom ?msuni .
+   ?p ub:doctoralDegreeFrom ?phduni .
+   ?p ub:worksFor <http://www.Department17.University1001.edu> .
+   ?p ub:emailAddress ?e .
+   ?p ub:telephone ?ph .
+   ?p ub:researchInterest ?res .
+   ?pub ub:publicationAuthor ?p .
+   ?pub ub:publicationAuthor ?s2 .
+}
+
+# L2
+
+SELECT ?s1 ?s2 ?pub ?uguni ?dept WHERE {
+  ?s1 rdf:type ub:GraduateStudent .
+  ?s1 ub:undergraduateDegreeFrom ?uguni .
+  ?s1 ub:memberOf ?dept .
+  ?s2 rdf:type ub:GraduateStudent .
+  ?s2 ub:undergraduateDegreeFrom ?uguni .
+  ?dept rdf:type ub:Department .
+  ?dept ub:subOrganizationOf <http://www.University1167.edu> .
+  ?uguni rdf:type ub:University .
+  ?pub rdf:type ub:Publication .
+  ?pub ub:publicationAuthor ?s1 .
+  ?pub ub:publicationAuthor ?s2 .
+}
+
+# L3
+
+SELECT ?p1 ?uni ?n1 ?e1 ?ph1 ?res1 ?c ?pub1 ?pub2 ?p2 ?n2 ?e2 ?ph2 ?res2 WHERE {
+    ?p1 rdf:type ub:FullProfessor .
+    ?p1 ub:undergraduateDegreeFrom <http://www.University584.edu> .
+    ?p1 ub:mastersDegreeFrom <http://www.University584.edu> .
+    ?p1 ub:doctoralDegreeFrom <http://www.University429.edu> .
+    ?p1 ub:worksFor ?uni .
+    ?p1 ub:name ?n1 .
+    ?p1 ub:emailAddress ?e1 .
+    ?p1 ub:telephone ?ph1 .
+    ?p1 ub:researchInterest ?res1 .
+    ?p1 ub:teacherOf ?c .
+    ?p2 rdf:type  ub:AssociateProfessor .
+    ?p2 ub:undergraduateDegreeFrom <http://www.University584.edu> .
+    ?p2 ub:mastersDegreeFrom <http://www.University584.edu> .
+    ?p2 ub:doctoralDegreeFrom <http://www.University9999.edu> .
+    ?p2 ub:worksFor ?uni .
+    ?p2 ub:name ?n2 .
+    ?p2 ub:emailAddress ?e2 .
+    ?p2 ub:telephone ?ph2 .
+    ?p2 ub:researchInterest ?res2 .
+    ?p2 ub:teacherOf ?course2 .
+    ?pub1 ub:publicationAuthor ?p1 .
+    ?pub2 ub:publicationAuthor ?p2 .
+}
+
+# L4
+
+SELECT ?x ?y ?z WHERE {
+    ?z ub:subOrganizationOf ?y .
+    ?y rdf:type ub:University .
+    ?z rdf:type ub:Department .
+    ?x ub:memberOf ?z .
+    ?x rdf:type ub:GraduateStudent .
+    ?x ub:undergraduateDegreeFrom ?y .
+}
+
+# L5
+
+SELECT ?x WHERE {
+    ?x rdf:type ub:GraduateStudent .
+}
+
+# L6
+
+SELECT ?x ?y ?z WHERE {
+    ?x rdf:type ub:GraduateStudent .
+    ?y rdf:type ub:AssistantProfessor .
+    ?z rdf:type ub:GraduateCourse .
+    ?x ub:advisor ?y .
+    ?y ub:teacherOf ?z .
+    ?x ub:takesCourse ?z .
+}
+
+# L7
+
+SELECT ?x WHERE {
+  ?x rdf:type ub:UndergraduateStudent .
+}
+
+# L8
+
+SELECT ?x WHERE {
+    ?x rdf:type ub:Course .
+    ?x ub:name ?y .
+}
+
+# L9
+
+SELECT ?x ?y ?z WHERE {
+    ?y ub:teacherOf ?z .
+    ?y rdf:type ub:FullProfessor .
+    ?z rdf:type ub:Course .
+    ?x ub:advisor ?y .
+    ?x rdf:type ub:UndergraduateStudent .
+    ?x ub:takesCourse ?z .
+}
+
+# L10
+
+SELECT ?x ?y ?z WHERE {
+    ?x rdf:type ub:UndergraduateStudent .
+    ?y rdf:type ub:Department .
+    ?x ub:memberOf ?y .
+    ?y ub:subOrganizationOf <http://www.University0.edu> .
+    ?x ub:emailAddress ?z .
+}
+
+# L11
+
+SELECT ?x ?y WHERE {
+  ?x rdf:type ub:FullProfessor .
+  ?y rdf:type ub:Department .
+  ?x ub:worksFor ?y .
+  ?y ub:subOrganizationOf <http://www.University0.edu> .
+}
+
+# L12
+
+SELECT ?x ?y ?z WHERE {
+    ?x rdf:type ub:UndergraduateStudent .
+    ?y rdf:type ub:University .
+    ?z rdf:type ub:Department .
+    ?x ub:memberOf ?z .
+    ?z ub:subOrganizationOf ?y .
+    ?x ub:undergraduateDegreeFrom ?y .
+}

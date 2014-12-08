@@ -1,0 +1,15 @@
+# Freebase
+# Query 2.2
+ 
+#SELECT * WHERE
+SELECT ?filmPerformance ?actor ?film ?name ?initialReleaseDate ?lang ?genre WHERE
+{
+  GRAPH ?g {
+    ?filmPerformance <http://rdf.freebase.com/ns/film.performance.actor> ?actor .
+    ?filmPerformance <http://rdf.freebase.com/ns/film.performance.film> ?film .
+    ?film <http://rdf.freebase.com/ns/type.object.name> ?name .
+    ?film <http://rdf.freebase.com/ns/film.film.initial_release_date> ?initialReleaseDate .
+    ?film <http://rdf.freebase.com/ns/film.film.language> ?lang .
+    ?film <http://rdf.freebase.com/ns/film.film.genre> ?genre .
+  }
+}

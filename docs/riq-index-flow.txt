@@ -1,0 +1,93 @@
+// data structures:
+
+// 0. 7 spo lists for a particular RDF graph
+vector<vector<POLY> > siglists(7);
+
+// 1. KEY: LSH hash; VALUE: list of similar graph ids
+// (giant hash map; uses Google's sparse_hash_map)
+sparse_hash_map<int, vector<int> > lsh2gids;
+
+// 2. INDEX: graph id (vertex); VALUE: set of graph ids connected to that vertex
+vector<set<int> > edge_set;
+
+// 3. INDEX: graph id (vertex); VALUE: component #
+vector<int> component;
+
+// 4. INDEX: component #; VALUE: list of graph ids in that component
+vector<vector<int> > cc2gids;
+
+// 5. KEY: name of graph group (e.g. '00101010'); VALUE: size of group
+// (small because the # of groups ~ a few thousand at most)
+unordered_map<string, int> ccname2size;
+
+// workflow:
+
+HD
+
+|
+V
+
+// read spo lists
+siglists vector of vectors
+                                   \
+|                                   \
+V                                    V
+
+// compute LSH hashes                // store in BDB (key is graph id)
+lshsig()                             storeInDB()
+
+|
+V
+
+lsh2gids hash map
+
+|
+V
+
+// build disconnected graphs out of the graph ids in each LSH bucket
+build_graph()
+
+|
+V
+
+edge_set vector of sets
+
+|
+V
+
+// walk the graph and discover connected components
+connected_components()
+
+|
+V
+
+// breadth-first search
+(manipulates lists of discovered & processed vertices)
+bfs()
+
+|
+V
+
+component vector
+
+|
+V
+
+cc2gids vector of vectors
+
+|
+V
+
+// store group of graphs (connected component) in BDB
+storeComponent()
+
+|
+V
+
+ccname2size hash map
+
+|
+V
+
+// read groups from BDB, construct their unions and write to HD
+constructUnionOptCC()

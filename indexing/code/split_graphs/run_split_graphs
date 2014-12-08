@@ -1,0 +1,35 @@
+#!/bin/bash
+
+if [ $# -ne 4 ]; then
+  echo "usage : <nt file> <meta file> <prefix file> <suffix>"
+  exit
+fi
+
+NT_FILE=$1
+META_FILE=$2
+PREFIX_FILE=$3
+SUFFIX=$4
+
+#USER=`whoami`
+USER="vsfgd"
+HOME="/home/$USER"
+RIS=$HOME/RIS/indexing/RIS
+RISRUN=$HOME/RIS/indexing/RIS.RUN
+CODE=$HOME/RIS/indexing/code
+INDEX_DIR="index"
+INPUT_DIR=${RISRUN}/$INDEX_DIR/GRAPHIDS
+OUTPUT_DIR=${RISRUN}/$INDEX_DIR/GRAPHIDS.n3
+
+rm -f $INPUT_DIR/*.$SUFFIX
+
+if [ -d $OUTPUT_DIR ]; then
+    rm -rf $OUTPUT_DIR/*
+else
+    mkdir $OUTPUT_DIR
+fi
+
+for file in $INPUT_DIR/*; do
+	$CODE/split_graphs/split_graphs $NT_FILE $META_FILE $file $PREFIX_FILE $SUFFIX
+done
+
+mv $INPUT_DIR/*.$SUFFIX $OUTPUT_DIR/

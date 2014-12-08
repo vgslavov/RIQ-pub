@@ -1,0 +1,9 @@
+CC=g++
+OFLAG=-O3
+LIBS=`pkg-config raptor2 --libs`
+INCLUDES=`pkg-config raptor2 --cflags`
+
+all: utils.o Rdf_Sig_Generator.o
+	$(CC) -o Rdf_Sig_Gen utils.o Rdf_Sig_Generator.o $(OFLAG) $(LIBS) $(INCLUDES)
+
+clean: rm -rf *.o
