@@ -25,3 +25,9 @@ Databases*](http://webdb2014.eecs.umich.edu/) (**WebDB 2014**),
 Snowbird, UT, June 2014.
 ([manuscript](http://v.web.umkc.edu/vsfgd/files/riq-webdb-paper.pdf),
 [technical report](http://v.web.umkc.edu/vsfgd/files/riq-tr.pdf))
+
+Acknowledgments
+---------------
+
+This work was supported by the National Science Foundation under
+Grant No. 1115871.
