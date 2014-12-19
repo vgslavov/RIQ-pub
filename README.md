@@ -13,10 +13,6 @@ processor to produce the final results.
 
 ## Publications
 
-* Vasil Slavov, Anas Katib, Vinutha Nuchimaniyanda, Praveen Rao. ``A
-Novel Tool for Fast Processing of SPARQL Queries on RDF Quadruples."
-**Submitted to** *The 2015 ACM SIGMOD International Conference on Management
-of Data* (**SIGMOD 2015**), Melbourne, Australia. (Demo)
 
 * Vasil Slavov, Anas Katib, Praveen Rao, Srivenu Paturi, Dinesh
 Barenkala. ``Fast Processing of SPARQL Queries on RDF Quadruples."
@@ -25,6 +21,13 @@ Databases*](http://webdb2014.eecs.umich.edu/) (**WebDB 2014**),
 Snowbird, UT, June 2014.
 ([manuscript](http://v.web.umkc.edu/vsfgd/files/riq-webdb-paper.pdf),
 [technical report](http://v.web.umkc.edu/vsfgd/files/riq-tr.pdf))
+
+
+## Submitted Publications
+* Vasil Slavov, Anas Katib, Vinutha Nuchimaniyanda, Praveen Rao. ``A
+Novel Tool for Fast Processing of SPARQL Queries on RDF Quadruples."
+**Submitted to** *The 2015 ACM SIGMOD International Conference on Management
+of Data* (**SIGMOD 2015**), Melbourne, Australia. (Demo)
 
 Acknowledgments
 ---------------
