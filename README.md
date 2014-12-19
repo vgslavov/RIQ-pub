@@ -29,8 +29,7 @@ Novel Tool for Fast Processing of SPARQL Queries on RDF Quadruples."
 **Submitted to** *The 2015 ACM SIGMOD International Conference on Management
 of Data* (**SIGMOD 2015**), Melbourne, Australia. (Demo)
 
-Acknowledgments
----------------
+## Acknowledgments
 
 This work was supported by the National Science Foundation under
 Grant No. 1115871.
