@@ -1,4 +1,5 @@
 # `RIQ`: RDF Indexing on Quadruples
+(This software development is still under development.)
 
 ## Summary
 
