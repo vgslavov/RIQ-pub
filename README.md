@@ -20,8 +20,8 @@ Barenkala. ``Fast Processing of SPARQL Queries on RDF Quadruples."
 [*Proceedings of the 17th International Workshop on the Web and
 Databases*](http://webdb2014.eecs.umich.edu/) (**WebDB 2014**),
 Snowbird, UT, June 2014.
-([manuscript](http://v.web.umkc.edu/vsfgd/files/riq-webdb-paper.pdf),
-[technical report](http://v.web.umkc.edu/vsfgd/files/riq-tr.pdf))
+([paper](http://r.web.umkc.edu/raopr/riq-webdb2014.pdf),
+[technical report](http://r.web.umkc.edu/raopr/TR-DB-2014-01.pdf))
 
 
 ## Submitted Publications
