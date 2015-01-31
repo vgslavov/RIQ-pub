@@ -23,11 +23,11 @@ Snowbird, UT, June 2014.
 ([paper](http://r.web.umkc.edu/raopr/riq-webdb2014.pdf))
 
 
-## Submitted Publications
+## In preparation
 * Vasil Slavov, Anas Katib, Vinutha Nuchimaniyanda, Praveen Rao. ``A
 Novel Tool for Fast Processing of SPARQL Queries on RDF Quadruples."
 
-In preparation. (Demo)
+(Demo)
 
 ## Acknowledgments
 
