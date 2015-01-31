@@ -26,8 +26,8 @@ Snowbird, UT, June 2014.
 ## Submitted Publications
 * Vasil Slavov, Anas Katib, Vinutha Nuchimaniyanda, Praveen Rao. ``A
 Novel Tool for Fast Processing of SPARQL Queries on RDF Quadruples."
-**Submitted to** *The 2015 ACM SIGMOD International Conference on Management
-of Data* (**SIGMOD 2015**), Melbourne, Australia. (Demo)
+
+In preparation. (Demo)
 
 ## Acknowledgments
 
