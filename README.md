@@ -14,7 +14,7 @@ processor to produce the final results.
 
 ## Publications
 
-* Anas Katib, Vasil Slavov, Anas Katib. ``RIQ: Fast Processing of SPARQL
+* Anas Katib, Vasil Slavov, Praveen Rao. ``RIQ: Fast Processing of SPARQL
 Queries on RDF Quadruples." In the Journal of Web Semantics (JWS), Elsevier,
 http://dx.doi.org/10.1016/j.websem.2016.03.005, 2016.
 
